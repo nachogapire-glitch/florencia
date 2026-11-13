@@ -1,0 +1,947 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Florencia"><meta name="theme-color" content="#2a2340"><style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>Florencia en dos días</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: banda de cabecera a todo lo ancho con el skyline de Florencia al atardecer; debajo, fichas con una escena ilustrada de cada sitio */
+:root{
+  --bg:#f4f1ec;
+  --surface:#ffffff;
+  --ink:#1f2228;
+  --muted:#5f636e;
+  --verde:#2f5d50;
+  --rosa:#a8546a;
+  --line:#e0dbd2;
+  --chip:#efe9df;
+  --warn-bg:#fbeee3;
+  --warn-ink:#874318;
+  --night:#272640;
+  --f-display:"Cinzel", "Trajan Pro", Georgia, serif;
+  --f-body:"Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15151f;--surface:#1f1f2c;--ink:#efeef3;--muted:#a9a9b8;--verde:#86c2ae;--rosa:#e797ab;--line:#30303f;--chip:#2a2a39;--warn-bg:#3a2a1f;--warn-ink:#f4c49d;--night:#0e0e18;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15151f;--surface:#1f1f2c;--ink:#efeef3;--muted:#a9a9b8;--verde:#86c2ae;--rosa:#e797ab;--line:#30303f;--chip:#2a2a39;--warn-bg:#3a2a1f;--warn-ink:#f4c49d;--night:#0e0e18;color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.pad{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+
+.hero{position:relative;color:#fff;background:#2a2340;overflow:hidden}
+.hero svg.sky{position:absolute;inset:0;width:100%;height:100%}
+.hero-in{position:relative;max-width:720px;margin:0 auto;padding-block:34px 150px;display:flex;flex-direction:column;gap:8px}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#ffd9a8}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(34px,10vw,58px);line-height:1.02;margin:0;text-wrap:balance;text-shadow:0 2px 18px rgba(30,10,40,.5)}
+.lead{margin:0;max-width:52ch;color:#fff3e6;text-shadow:0 1px 8px rgba(30,10,40,.6)}
+
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:20px;padding-block:20px 60px}
+.alert{background:var(--warn-bg);color:var(--warn-ink);border-radius:14px;padding:14px 16px;font-size:15px;display:flex;flex-direction:column;gap:8px}
+.where{background:var(--night);color:#fff;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.where p{margin:0;font-size:15px;color:#d9d7ea}
+.geobar{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--night);color:#fff;border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;font-size:15px}
+.geobar span{flex:1;min-width:0}
+.geobar.arrived{background:var(--verde)}
+.geobar .btn{background:#ffd9a8;color:#2a2340}
+.dist{font-style:normal;font-weight:600;color:var(--rosa);white-space:nowrap}
+.geobar:not([hidden]) ~ .tabs{top:calc(env(safe-area-inset-top,0px) + 60px)}
+.where .btn{background:#ffd9a8;color:#2a2340;align-self:flex-start}
+
+.tabs{display:flex;gap:8px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding-block:10px;z-index:5}
+.tabs button{flex:1;font:600 15px var(--f-body);padding:11px 8px;border-radius:999px;border:1.5px solid var(--verde);background:transparent;color:var(--verde);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--verde);color:var(--bg)}
+.tabs button:focus-visible,.btn:focus-visible,summary:focus-visible{outline:3px solid var(--rosa);outline-offset:2px}
+.daynote{margin:0;color:var(--muted);font-size:15px}
+
+.stops{display:flex;flex-direction:column;gap:18px}
+.stop{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(40,30,60,.10);display:flex;flex-direction:column;min-width:0}
+.stop.done .scene{filter:grayscale(.8) brightness(.9)}
+.scene{position:relative;aspect-ratio:400/170;max-width:100%}
+.scene svg{display:block;width:100%;height:100%}
+.scene .num{position:absolute;left:12px;top:10px;background:rgba(20,15,35,.55);color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:3px 10px;backdrop-filter:blur(4px);font-variant-numeric:tabular-nums}
+.scene h2{position:absolute;left:14px;right:14px;bottom:10px;margin:0;color:#fff;font-family:var(--f-display);font-size:23px;line-height:1.15;text-shadow:0 2px 10px rgba(10,5,20,.8);text-wrap:balance}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.it{font-style:italic;color:var(--muted);font-size:15px}
+.info{display:flex;flex-wrap:wrap;gap:6px}
+.info span{background:var(--chip);border-radius:8px;padding:3px 9px;font-size:13.5px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.dur{font-size:13px;color:var(--muted);margin-right:auto}
+.chaps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.chap{width:100%;display:flex;align-items:center;gap:10px;text-align:left;background:transparent;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:15px var(--f-body);color:var(--ink);cursor:pointer}
+.chap .ico{width:22px;height:22px;border-radius:50%;background:var(--chip);display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex:none;color:var(--rosa)}
+.chap .ct{flex:1;min-width:0}
+.chap .cm{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chap.on,.chap.cur{border-color:var(--rosa);background:var(--chip)}
+.chap:focus-visible{outline:3px solid var(--rosa);outline-offset:2px}
+details h4{font-family:var(--f-display);font-size:16px;margin:1em 0 0;color:var(--rosa)}
+.btn{font:600 15px var(--f-body);border-radius:10px;padding:10px 14px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.play{background:var(--rosa);color:#fff}
+.play.on{background:var(--verde);color:var(--bg)}
+.ghost{background:var(--chip);color:var(--ink)}
+details{border-top:1px solid var(--line);padding-top:8px}
+summary{cursor:pointer;font-weight:600;color:var(--verde)}
+details p{margin:.6em 0 0}
+.look{margin:.4em 0 0;padding-left:1.1em}
+.look li{margin:.2em 0}
+.check{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+.check input{width:20px;height:20px;accent-color:var(--verde)}
+.tips{background:var(--surface);border-radius:16px;padding:16px;box-shadow:0 6px 24px rgba(40,30,60,.08)}
+.tips h3{font-family:var(--f-display);font-size:20px;margin:0 0 6px;color:var(--rosa)}
+.tips ul{margin:0;padding-left:1.1em}
+.tips li{margin:.3em 0}
+.foot{font-size:13px;color:var(--muted)}
+.foot a{color:var(--verde)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+
+<header class="hero">
+  <svg class="sky" id="herosky" viewBox="0 0 800 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
+  <div class="hero-in pad">
+    <div class="eyebrow">Viernes 13 · Sábado 14 de noviembre</div>
+    <h1>Florencia en dos días</h1>
+    <p class="lead">Tu ruta a pie con lo mejor de la ciudad. En cada sitio pulsa <b>Escuchar</b> y te lo cuento en voz alta.</p>
+  </div>
+</header>
+
+<div class="wrap pad">
+  <div class="alert">
+    <div><b>Cúpula de Brunelleschi:</b> cierra del 16 al 20 de noviembre, así que hoy o mañana. Reserva hora (Brunelleschi Pass, 30 €). Sábado, último turno 16:30.</div>
+    <div><b>Campanile de Giotto:</b> cerrado hoy viernes; mañana abre.</div>
+    <div><b>Reserva ya</b> la Accademia (el David, hoy) y los Uffizi (mañana): en fin de semana se agotan horas.</div>
+  </div>
+
+  <div class="where">
+    <p>Activa la ubicación y la guía te dirá a cuántos metros estás de cada sitio y te avisará cuando llegues.</p>
+    <button class="btn" id="geostart" type="button">📍 Activar ubicación</button>
+    <p id="geomsg"></p>
+  </div>
+  <div class="alert" id="nospeech" hidden>Este navegador no permite leer en voz alta. Abre la guía en Safari o Chrome; mientras, despliega el texto de cada sitio.</div>
+
+  <div class="geobar" id="geobar" hidden><span id="geotxt"></span><button class="btn" id="geogo" type="button">Ver</button></div>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab1" aria-selected="true" data-day="1">Viernes · Día 1</button>
+    <button role="tab" id="tab2" aria-selected="false" data-day="2">Sábado · Día 2</button>
+  </div>
+  <p class="daynote" id="daynote"></p>
+  <div class="stops" id="stops"></div>
+
+  <section class="tips">
+    <h3>Si te sobra tiempo</h3>
+    <ul>
+      <li><b>Palazzo Pitti y Jardín de Bóboli</b>, al otro lado del río. En noviembre Bóboli cierra a las 16:30.</li>
+      <li><b>Museo del Bargello</b>: Donatello y la mejor escultura del Renacimiento, sin agobios.</li>
+      <li><b>Santa Maria Novella</b>, junto a la estación: la Trinidad de Masaccio.</li>
+    </ul>
+  </section>
+  <section class="tips">
+    <h3>Comer como un florentino</h3>
+    <ul>
+      <li><b>Bistecca alla fiorentina</b>: se pide al peso (1 kg para dos) y poco hecha.</li>
+      <li><b>Lampredotto</b>: el bocadillo de callos de siempre, en el Mercato Centrale.</li>
+      <li><b>Ribollita</b> y <b>pappa al pomodoro</b>: sopas de pan toscano, perfectas en noviembre.</li>
+      <li>Para cenar con ambiente: <b>Santo Spirito</b>, al otro lado del Ponte Vecchio.</li>
+    </ul>
+  </section>
+  <p class="foot">Horarios y precios comprobados el 13/11/2026. Entradas oficiales:
+    <a href="https://tickets.duomo.firenze.it" target="_blank" rel="noopener">Duomo y Cúpula</a> ·
+    <a href="https://www.uffizi.it/en/tickets" target="_blank" rel="noopener">Uffizi</a> ·
+    <a href="https://www.galleriaaccademiafirenze.it" target="_blank" rel="noopener">Accademia</a>.</p>
+</div>
+
+<script>
+const MAP = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q + ", Firenze");
+const ROUTE = q => "https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=" + encodeURIComponent(q + ", Firenze");
+const PHOTOS = q => "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(q + " Firenze");
+
+const DAYS = {
+ 1:{note:"Para hoy, a pie. El David va a la hora que tengas reservada (está a 5 minutos del Duomo); el resto, en este orden. Acabas viendo el atardecer (hacia las 16:55) desde lo alto de la ciudad.",
+ stops:[
+ {id:"duomo",when:"Llegada",name:"Piazza del Duomo",it:"Catedral de Santa Maria del Fiore y Baptisterio",
+  info:["Catedral: entrada libre, cola corta a media tarde","Baptisterio: con el pase del Duomo"],map:"Piazza del Duomo",
+  look:["Los tres mármoles de la fachada: blanco de Carrara, verde de Prato y rosa de Maremma","La Puerta del Paraíso del Baptisterio, la que mira a la catedral","Dentro de la catedral, el Juicio Final pintado en la cúpula","El reloj de Paolo Uccello sobre la puerta principal, por dentro: gira al revés"],
+  text:`Bienvenido a Florencia. Estás en la Plaza del Duomo, el corazón religioso de la ciudad, y delante tienes tres edificios que forman un solo conjunto: la catedral, el campanario y el baptisterio. Ponte de espaldas al baptisterio, el edificio octogonal, y mira la catedral de frente.
+
+La catedral se llama Santa María del Fiore, Santa María de la Flor, porque la flor, el lirio, es el símbolo de Florencia. Se empezó en el año 1296, cuando Florencia era una de las ciudades más ricas de Europa gracias al comercio de la lana y a la banca. Los florentinos querían la catedral más grande y más bonita de la cristiandad, y el proyecto era tan ambicioso que dejaron un enorme hueco octogonal en el crucero sin saber cómo lo iban a cubrir. Confiaban en que algún día alguien encontraría la solución. Ese hueco estuvo abierto durante décadas, hasta que llegó Brunelleschi con su cúpula, de la que te hablo en la siguiente parada.
+
+Fíjate en la fachada. Aunque parece medieval, es del siglo diecinueve: la original se quedó a medio hacer y se desmontó en el siglo dieciséis, y durante casi trescientos años la catedral tuvo una fachada de ladrillo desnudo. Cuando Florencia fue capital de Italia se convocó un concurso y se terminó en 1887, respetando el estilo de los otros edificios. Mira los colores: el blanco es mármol de Carrara, el verde es mármol de Prato y el rosa viene de la Maremma, al sur de Toscana. Esos mismos tres colores los verás en el campanario y en el baptisterio, y es lo que da a esta plaza su aspecto de joyero.
+
+Ahora date la vuelta hacia el baptisterio. Es el edificio más antiguo de los tres, y los florentinos de la Edad Media creían que había sido un templo romano dedicado a Marte. No lo es, es románico, del siglo once o doce, pero esa leyenda dice mucho del orgullo de la ciudad. Aquí se bautizaba a todos los niños florentinos, y entre ellos estuvo Dante Alighieri, el autor de la Divina Comedia, que lo llamaba con cariño mi bello San Juan.
+
+Busca la puerta de bronce dorado que mira hacia la catedral. Es obra de Lorenzo Ghiberti, que tardó veintisiete años en terminarla, de 1425 a 1452. Tiene diez paneles con escenas del Antiguo Testamento, y en ellos se ve por primera vez en la escultura la perspectiva del Renacimiento: los edificios y los paisajes se alejan hacia el fondo como si fueran un cuadro. Cuenta la tradición que Miguel Ángel, al verla, dijo que era digna de ser la puerta del Paraíso, y desde entonces se llama así. La que ves en la calle es una copia; los paneles originales están protegidos en el Museo de la Ópera del Duomo, que entra en tu pase si tienes tiempo.
+
+Entra en la catedral, que es gratis. Te va a sorprender lo sobrio que es el interior comparado con la fachada: los florentinos gastaron la fortuna en el exterior y en la cúpula. Camina hasta el centro, bajo la cúpula, y levanta la vista. Ahí arriba hay un Juicio Final pintado por Giorgio Vasari y Federico Zuccari en el siglo dieciséis, más de tres mil seiscientos metros cuadrados de pintura, con el Paraíso arriba y el Infierno abajo. Antes de salir, mira encima de la puerta principal, por dentro: hay un reloj pintado por Paolo Uccello en 1443 que tiene una sola aguja y gira al revés, porque marca las horas a la manera antigua, contando desde la puesta de sol. Todavía funciona.
+
+El campanario, a la derecha de la fachada, lo diseñó el pintor Giotto. Hoy está cerrado por mantenimiento, pero mañana tienes tiempo de subirlo.`},
+ {id:"accademia",when:"Con tu reserva",name:"Galleria dell'Accademia",it:"El David de Miguel Ángel",
+  info:["20 € + reserva","Hoy abierta hasta las 18:50 (última entrada 18:20)","Via Ricasoli 58, a 5 min del Duomo"],map:"Galleria dell'Accademia",
+  link:{href:"https://www.galleriaaccademiafirenze.it",label:"Entradas"},
+  look:["Los Prisioneros inacabados del pasillo: las figuras salen del bloque","Las manos, la mirada y las venas del David","Rodéalo entero: de lado se entiende la tensión antes del golpe"],
+  text:`Bienvenido. Estás en la Galería de la Academia, un museo que nació en 1784 como colección para los alumnos de la Academia de Bellas Artes, para que aprendieran copiando a los grandes maestros. Hoy la gente viene por una sola obra, y con razón. Pero antes de llegar a ella, no corras.
+
+Al entrar en la sala larga que lleva hasta el David vas a pasar entre unas figuras enormes a medio esculpir. Son los Prisioneros, o los Esclavos, de Miguel Ángel. Estaban pensados para la tumba del papa Julio segundo en Roma, un proyecto gigantesco que Miguel Ángel arrastró durante cuarenta años y que él mismo llamaba la tragedia de la tumba. Nunca se terminaron. Míralos con calma: son cuerpos atrapados dentro del mármol, que parecen luchar por salir. Ves la piedra en bruto, las marcas del cincel, una rodilla terminada y una cabeza que todavía no existe. Miguel Ángel decía que la escultura ya estaba dentro del bloque y que su trabajo era quitar la piedra que sobraba para liberarla. Aquí lo puedes ver literalmente. Para mucha gente son más emocionantes que las obras acabadas.
+
+Al fondo, bajo una cúpula de luz construida expresamente para él, está el David.
+
+Su historia empieza mucho antes de Miguel Ángel. En 1464, la Ópera del Duomo encargó a otro escultor, Agostino di Duccio, una gran estatua para colocar en lo alto de uno de los contrafuertes de la catedral. Se extrajo un bloque enorme de mármol de Carrara, alto y estrecho, pero el escultor lo empezó, lo dejó a medias y lo abandonó. Otro lo intentó después y también desistió. El bloque, al que llamaban el Gigante, pasó décadas tirado en el patio de la catedral, a la intemperie, considerado casi inservible. En 1501, un Miguel Ángel de veintiséis años, que acababa de volver de Roma con la fama de la Piedad del Vaticano, se hizo con el encargo. Trabajó durante casi tres años, protegido tras una empalizada, y en 1504 el David estaba terminado.
+
+Mide cinco metros y diecisiete centímetros. Fíjate primero en el momento que representa. Casi todos los Davides anteriores, como el de Donatello, muestran al joven después de la victoria, con la cabeza de Goliat a sus pies. Miguel Ángel elige el instante antes de la pelea: David acaba de ver al gigante y está calculando. Lleva la honda colgada al hombro izquierdo y en la mano derecha, abajo, sujeta la piedra. Su cuerpo parece relajado, apoyado en una pierna, pero mira su cara: el ceño fruncido, las cejas tensas, las aletas de la nariz abiertas. Está concentrado y en alerta. Es la inteligencia y la voluntad antes de la acción.
+
+Ahora observa las proporciones. La cabeza y las manos son algo más grandes de lo normal. No es un error: la estatua estaba pensada para verse desde abajo y desde lejos, y desde ahí esas proporciones se corrigen. Fíjate en la mano derecha: se ven las venas hinchadas, los nudillos, la tensión. Y date la vuelta alrededor de la estatua; desde los lados y desde atrás se entiende mucho mejor el giro del cuerpo y hacia dónde mira.
+
+Cuando se terminó, la ciudad decidió que era demasiado hermoso para ponerlo tan alto, y una comisión en la que estaban, entre otros, Leonardo da Vinci y Botticelli, discutió dónde colocarlo. Se eligió la entrada del Palazzo Vecchio, como símbolo de la república. El traslado desde el taller hasta la plaza, menos de un kilómetro, duró cuatro días. Allí estuvo hasta 1873, cuando se trajo aquí para protegerlo.
+
+Antes de irte, la galería tiene también una buena colección de pintura florentina sobre fondo dorado y una sala de instrumentos musicales antiguos de la corte de los Médici. Si tienes tiempo, merece la pena echar un vistazo.`},
+ {id:"cupula",when:"Con reserva",name:"Cúpula de Brunelleschi",it:"463 escalones, sin ascensor",
+  info:["Brunelleschi Pass 30 € (incluye campanile, baptisterio, museo y cripta, 3 días)","Hora obligatoria","Hoy último turno 18:45 · sábado 16:30","Lleva pasaporte o DNI"],map:"Cupola del Brunelleschi",
+  link:{href:"https://tickets.duomo.firenze.it",label:"Reservar"},
+  look:["A mitad de subida, la galería interior pegada a los frescos del Juicio Final","Entre las dos cúpulas, los ladrillos colocados en espiga","Arriba: el Palazzo Vecchio, Santa Croce y las colinas de Fiesole"],
+  text:`Vas a subir por dentro de la cúpula de ladrillo más grande que se ha construido jamás. Seiscientos años después, nadie la ha superado con esa técnica. Para entender por qué es tan especial, tienes que imaginarte el problema que tenía Florencia a principios del siglo quince.
+
+La catedral estaba casi terminada, pero en el centro había un hueco octogonal de unos cuarenta y cinco metros de diámetro, a más de cincuenta metros de altura. Para hacer una cúpula, lo normal era construir primero una cimbra, un armazón de madera enorme que sostenía los ladrillos hasta que la obra se cerraba y se aguantaba sola. Pero para un hueco tan grande y tan alto no había árboles suficientes, y además la madera no habría soportado el peso. Tampoco se querían arbotantes, los arcos exteriores de las catedrales góticas, que a los florentinos les parecían cosa de sus rivales del norte.
+
+En 1418 se convocó un concurso. Se presentó Filippo Brunelleschi, un orfebre con fama de genio y de cascarrabias, que años antes había perdido el concurso de las puertas del baptisterio frente a Ghiberti y se había ido a Roma a estudiar las ruinas antiguas, sobre todo el Panteón. Brunelleschi aseguró que podía construir la cúpula sin cimbra, pero se negó a explicar cómo, por miedo a que le robaran la idea. Cuenta una leyenda que retó a los demás a poner un huevo de pie sobre una mesa; nadie lo consiguió, y él lo hizo aplastándolo un poco por la base. Cuando le dijeron que así cualquiera, respondió que lo mismo dirían de su cúpula si les contaba el secreto.
+
+¿Y cuál era el secreto? Primero, construir dos cúpulas, una dentro de la otra, unidas por nervios: la interior, gruesa, aguanta el peso, y la exterior, más fina, protege de la lluvia y da la forma alta y apuntada que ves desde toda la ciudad. Segundo, colocar los ladrillos en espiga, en un dibujo de zigzag, de forma que cada hilada nueva quedaba trabada con la anterior y la obra se sostenía sola mientras crecía, anillo a anillo. Tercero, unos cinturones de piedra y madera que abrazan la cúpula para que no se abra. Y además inventó máquinas: una grúa movida por bueyes que podía subir y bajar cargas sin tener que dar la vuelta a los animales, algo revolucionario. Para no perder tiempo, hizo que los obreros comieran arriba, en la obra. Se calcula que se usaron unos cuatro millones de ladrillos.
+
+La cúpula se cerró en 1436, y la catedral se consagró ese mismo año. Brunelleschi no vio terminada la linterna, la pequeña torre de mármol de arriba; murió en 1446 y está enterrado en la cripta de la catedral, un honor reservado casi siempre a los santos.
+
+Durante la subida vas a caminar justo por el espacio entre las dos cúpulas. Fíjate en las paredes: verás los ladrillos en espiga y cómo el pasillo se va curvando a medida que subes. A mitad de camino saldrás a una galería interior que rodea la base de la cúpula, a pocos metros de los frescos del Juicio Final; desde allí se ven las figuras a tamaño enorme, con detalles que desde abajo son imposibles de apreciar. Mira también hacia abajo, el suelo de mármol de la catedral, y verás lo alto que estás. El último tramo es estrecho y muy empinado.
+
+Arriba, en la terraza de la linterna, tienes la mejor vista de Florencia. Busca la torre del Palazzo Vecchio, el río Arno con el Ponte Vecchio, la iglesia de Santa Croce con su fachada blanca, y al norte las colinas de Fiesole. Y justo al lado, el campanario de Giotto, que parece que puedas tocar. Tómate tu tiempo; has subido cuatrocientos sesenta y tres escalones.`},
+ {id:"orsanmichele",when:"De camino",name:"Orsanmichele",it:"La iglesia que fue granero",
+  info:["Exterior gratis, se ve al pasar","En Via dei Calzaiuoli"],map:"Orsanmichele",
+  look:["Las catorce hornacinas: cada estatua la pagó un gremio","San Jorge de Donatello y Santo Tomás de Verrocchio","Los escudos de los gremios encima de cada hornacina"],
+  text:`Saliendo de la plaza del Duomo, toma la calle Via dei Calzaiuoli, la calle de los zapateros, que une el centro religioso con el centro político de la ciudad. A mitad de camino, a tu derecha, verás un edificio cuadrado y macizo, de piedra, con estatuas por fuera. No parece una iglesia, y es que no nació como iglesia.
+
+Su nombre, Orsanmichele, viene de un huerto, orto, dedicado a San Miguel que había aquí antiguamente. En el siglo catorce se construyó en este lugar un mercado de grano, una loggia abierta por los lados, con almacenes en los pisos superiores para guardar el trigo de la ciudad en caso de hambruna o de asedio. En uno de sus pilares había una imagen de la Virgen a la que se atribuían milagros, y empezó a llegar tanta gente a rezar que el mercado se fue convirtiendo en santuario. Al final se cerraron los arcos y se transformó en iglesia, aunque los pisos de arriba siguieron sirviendo de granero durante mucho tiempo. En algunos pilares de dentro todavía se ven las aberturas por donde el grano bajaba desde los almacenes.
+
+Lo interesante está fuera. La ciudad repartió las hornacinas de la fachada entre los gremios, las arti, que eran las asociaciones de oficios que gobernaban de verdad Florencia. Estaban los gremios mayores, como el de los comerciantes de lana, el de los banqueros, el de los jueces y notarios o el de los médicos y boticarios, y los gremios menores, como los carniceros, los herreros o los zapateros. Cada uno tenía que poner en su hornacina la estatua de su santo patrón, y a principios del siglo quince empezó una auténtica competición entre ellos por tener la mejor. Contrataron a los mejores escultores vivos: Donatello, Ghiberti, Nanni di Banco, Verrocchio. El resultado es que esta fachada es como un museo al aire libre del nacimiento de la escultura del Renacimiento: por primera vez desde la Antigüedad, las figuras dejan de ser rígidas y empiezan a tener peso, movimiento y psicología.
+
+Busca el San Jorge de Donatello, el patrón de los armeros, un joven guerrero con escudo, de pie, mirando al frente con una mezcla de valentía y nervios. Y busca el grupo de Santo Tomás y Cristo de Verrocchio, el maestro de Leonardo da Vinci: Tomás, el incrédulo, está a punto de meter la mano en la herida de Cristo, y la escena se sale literalmente de la hornacina. Encima de cada nicho verás el escudo del gremio correspondiente.
+
+Las estatuas que hay hoy en la calle son copias; los originales se retiraron para protegerlos y se conservan dentro del edificio y en el Museo del Bargello. Sigue bajando por la misma calle y en dos minutos llegarás a la Plaza de la Señoría.`},
+ {id:"signoria",when:"Tarde",name:"Piazza della Signoria",it:"Palazzo Vecchio y Loggia dei Lanzi",
+  info:["Plaza y Loggia: gratis","Palazzo Vecchio: 18 €, abierto hasta las 19:00","El patio de entrada es gratis"],map:"Piazza della Signoria",
+  look:["La copia del David en la puerta del Palazzo Vecchio","Perseo con la cabeza de Medusa, de Cellini, en la Loggia","La placa redonda en el suelo frente a Neptuno, donde quemaron a Savonarola","El patio de entrada del palacio, decorado para una boda Médici"],
+  text:`Si la plaza del Duomo era el poder de Dios, esta es el poder de los hombres. La Plaza de la Señoría ha sido el centro de la vida política de Florencia desde la Edad Media, y aquí ha pasado de todo: asambleas, revueltas, celebraciones y ejecuciones.
+
+El edificio con la torre es el Palazzo Vecchio, el Palacio Viejo. Se construyó a partir de 1299 como sede de la Señoría, el gobierno de la república florentina, formado por priores elegidos entre los gremios, que vivían aquí dentro durante sus dos meses de mandato, casi encerrados, para que no pudieran ser sobornados. Mira lo que parece: una fortaleza, con almenas y muros de piedra, porque en la Florencia de entonces las familias poderosas se peleaban a muerte y el gobierno tenía que poder defenderse. La torre mide noventa y cuatro metros y no está centrada en la fachada, porque se aprovechó la base de una torre más antigua. Arriba estaba la campana que llamaba al pueblo a la plaza en momentos de peligro. Más de setecientos años después, el palacio sigue siendo el ayuntamiento de Florencia.
+
+Delante de la puerta está el David de Miguel Ángel. Es una copia, pero está exactamente en el lugar donde se colocó el original en 1504. No se puso aquí por casualidad: David, el joven que vence al gigante Goliat, era el símbolo perfecto de una pequeña república que se enfrentaba a enemigos mucho más poderosos. El original estuvo a la intemperie casi cuatrocientos años, y en 1527, durante una revuelta, un banco lanzado desde una ventana del palacio le rompió el brazo izquierdo en tres trozos. Un joven Giorgio Vasari recogió los fragmentos y se pudieron recolocar. En 1873 se llevó a la Galería de la Academia, donde lo has visto hoy o lo verás en un rato.
+
+A su lado está Hércules y Caco, de Bandinelli, que los florentinos de la época criticaron sin piedad; se burlaban diciendo que Hércules parecía un saco de melones. Un poco más allá, la fuente de Neptuno, de Ammannati, hecha para celebrar una boda de los Médici; a la gente le pareció tan pálida y sosa que la apodaron il Biancone, el blancote.
+
+Ahora mira al suelo, delante de la fuente. Hay una placa redonda de piedra. Marca el lugar donde fue ahorcado y quemado el fraile dominico Girolamo Savonarola el veintitrés de mayo de 1498. Savonarola había dominado Florencia durante unos años con sus sermones apocalípticos contra el lujo y la corrupción, y en esta misma plaza organizó la famosa hoguera de las vanidades, donde se quemaron espejos, joyas, libros, instrumentos y pinturas. Al final se enfrentó al papa, perdió el favor del pueblo y acabó en la hoguera en el mismo sitio. Cada veintitrés de mayo todavía se cubre la placa de flores.
+
+A la derecha del palacio está la Loggia dei Lanzi, una gran galería abierta del siglo catorce, pensada para las ceremonias públicas. Se llama así por los lansquenetes, los mercenarios alemanes al servicio de los Médici, que acampaban aquí. Hoy es un museo de escultura gratuito. La pieza estrella es el Perseo de Benvenuto Cellini, en bronce: el héroe sostiene en alto la cabeza cortada de Medusa, de la que todavía cae sangre. Cellini cuenta en sus memorias que la fundición estuvo a punto de fracasar y que tuvo que echar al horno los platos y cacharros de peltre de su casa para que el metal llegara a todos los rincones. Al lado, el Rapto de las Sabinas de Giambologna, tres cuerpos en espiral tallados en un solo bloque de mármol, que hay que mirar dando la vuelta entera.
+
+Si te apetece entrar en el Palazzo Vecchio, el patio de la entrada es gratis y precioso, decorado para la boda de Francisco de Médici con Juana de Austria. Arriba, el Salón de los Quinientos es una de las salas más grandes de Italia: allí debían estar pintadas dos batallas, una de Leonardo y otra de Miguel Ángel, cara a cara, que nunca se terminaron.`},
+ {id:"ponte",when:"Al anochecer",name:"Ponte Vecchio",it:"El puente de los joyeros",
+  info:["Gratis","Mejor foto: desde el puente de Santa Trinita, río abajo"],map:"Ponte Vecchio",
+  look:["El pasillo de ventanas por encima de las tiendas: el Corredor Vasariano","El busto de Benvenuto Cellini en el centro","Las trastiendas colgadas sobre el río, sostenidas por vigas de madera"],
+  text:`Estás en el puente más antiguo de Florencia y uno de los más famosos del mundo. Su nombre lo dice todo: Ponte Vecchio, el Puente Viejo. Aquí, en un punto estrecho del río Arno, ya hubo un puente en época romana. Los puentes anteriores fueron destruidos por las riadas, y el que ves se reconstruyó en 1345 con tres arcos de piedra muy rebajados, algo muy avanzado para la época.
+
+Desde el principio el puente tuvo tiendas encima, porque era un lugar de paso obligado. Primero estuvieron aquí los carniceros, los pescaderos y los curtidores, que tiraban los restos directamente al río. Te puedes imaginar el olor. En 1593, el gran duque Fernando primero de Médici se hartó, los echó a todos y decretó que solo pudieran instalarse orfebres y joyeros, un comercio más digno para un puente por el que él pasaba a diario. Más de cuatrocientos años después, siguen aquí. Fíjate en las tiendas que cuelgan hacia el río, por la parte de atrás: son ampliaciones que los comerciantes fueron añadiendo a lo largo de los siglos, sostenidas con vigas de madera.
+
+Ahora mira hacia arriba, por encima de las tiendas de uno de los lados. Verás un pasillo cerrado con ventanas. Es el Corredor Vasariano. En 1565, Cosme primero de Médici, que vivía en el Palacio Pitti, al otro lado del río, y gobernaba desde el Palazzo Vecchio y los Uffizi, encargó a Giorgio Vasari un pasillo privado para ir de su casa a su oficina sin pisar la calle, sin mezclarse con la gente y sin correr el riesgo de un atentado. Vasari lo construyó en solo cinco meses: casi un kilómetro de pasillo que atraviesa edificios, pasa por encima del puente y llega hasta el Palacio Pitti. Hay una anécdota curiosa: en un punto el corredor tiene que rodear una torre, porque la familia Mannelli, sus propietarios, se negó a dejar que la atravesaran. Y cuando pasa por la iglesia de Santa Felicita, tiene un balcón desde el que los Médici podían oír misa sin ser vistos.
+
+En el centro del puente, los edificios se abren y aparece un mirador sobre el río. Ahí está el busto de Benvenuto Cellini, el orfebre y escultor del Perseo que viste en la Señoría, patrón de los joyeros del puente. Durante años los enamorados ponían candados en la verja que lo rodea; ahora está prohibido y la multa es importante.
+
+Y una historia más reciente. En agosto de 1944, cuando el ejército alemán se retiraba de Florencia ante el avance aliado, voló todos los puentes de la ciudad para frenar la persecución. Todos menos este. Se dice que fue por orden expresa de Hitler, que lo había visitado en 1938 y lo admiraba. Para cortar el paso, en cambio, destruyeron los edificios medievales de ambos extremos. En 1966, una terrible inundación del Arno llegó a cubrir las tiendas y arrastró las joyas de muchos comercios, pero el puente aguantó.
+
+Si quieres la mejor foto del Ponte Vecchio, camina hasta el siguiente puente río abajo, el de Santa Trinita, y míralo desde allí con la luz de la tarde reflejada en el agua.`},
+ {id:"piazzale",when:"16:55 aprox.",name:"Piazzale Michelangelo y San Miniato",it:"La vista de postal",
+  info:["Gratis","Unos 20-25 min andando cuesta arriba desde el puente","Bus 12 o 13 si vas cansado"],map:"Piazzale Michelangelo",
+  look:["Santa Croce, el Palazzo Vecchio, la cúpula y el Ponte Vecchio, de un vistazo","Sube cinco minutos más hasta San Miniato al Monte","Dentro de San Miniato, la cripta y el mosaico dorado del ábside"],
+  text:`Has llegado al mirador más famoso de Florencia. Antes de nada, disfruta de la vista y luego te cuento lo que estás viendo.
+
+Esta gran terraza no es antigua. Se construyó hacia 1869, en los años en que Florencia fue capital del recién unificado Reino de Italia, entre 1865 y 1871. Entonces se derribaron las murallas medievales, se abrieron grandes avenidas y el arquitecto Giuseppe Poggi diseñó esta subida por la colina con el mirador al final, como un balcón de la ciudad hacia su propia historia. La idea era dedicar el lugar a Miguel Ángel, y por eso en el centro hay una copia en bronce del David, rodeada de copias de las cuatro figuras de las tumbas de los Médici, las que mañana podrías ver en las Capillas Mediceas. Se pensó en hacer aquí un museo de Miguel Ángel que nunca llegó a existir.
+
+Ahora mira la ciudad. Hacia la derecha verás la fachada blanca y la torre de la basílica de Santa Croce, donde está enterrado el propio Miguel Ángel. Hacia el centro, la torre almenada del Palazzo Vecchio, y detrás, dominándolo todo, la cúpula roja de Brunelleschi con el campanario de Giotto a su lado. Esa cúpula sigue siendo la referencia de la ciudad: en el centro histórico ningún edificio la supera en altura. Más a la izquierda, sobre el río, el Ponte Vecchio, y si te fijas verás la línea del Corredor Vasariano por encima. Al fondo, en las colinas del norte, el pueblo de Fiesole, que era una ciudad etrusca antes de que existiera Florencia, y detrás los Apeninos. Verás que Florencia está en un valle, en una especie de cuenco rodeado de colinas, lo que explica sus veranos de calor y sus inviernos húmedos.
+
+Ahora, si te quedan fuerzas, sube las escaleras que hay detrás del mirador, cinco minutos más, hasta la iglesia de San Miniato al Monte. Es uno de los lugares más bonitos de Florencia, y mucho más tranquilo. Está dedicada a Miniato, que según la tradición fue el primer mártir de la ciudad, decapitado en el siglo tercero. La leyenda cuenta que, tras la ejecución, cogió su cabeza, cruzó el río y subió caminando hasta esta colina, donde quiso ser enterrado. Sobre su tumba se levantó esta iglesia a partir del año 1018.
+
+La fachada es de mármol blanco y verde, con figuras geométricas, igual que el baptisterio: es uno de los mejores ejemplos del románico florentino, la arquitectura de antes del Renacimiento que tanto inspiró a Brunelleschi. Arriba del todo hay un águila de cobre con un fardo de tela entre las garras: es el símbolo del gremio de los comerciantes de paño, que pagaba el mantenimiento de la iglesia. Dentro, el suelo de mármol tiene dibujos de animales y signos del zodíaco, y el altar está elevado sobre una cripta con muchísimas columnas, donde reposan las reliquias del santo. En el ábside brilla un gran mosaico dorado de Cristo.
+
+La iglesia la cuidan monjes benedictinos desde hace siglos, y al final de la tarde suelen cantar las vísperas en canto gregoriano. Si tienes la suerte de coincidir, siéntate en un banco y escucha: con la luz de las velas y la ciudad encendiéndose ahí abajo, es una de esas cosas que no se olvidan. Junto a la iglesia hay un cementerio monumental; ahí está enterrado, entre otros, Carlo Collodi, el autor de Pinocho. Y así termina tu primer día en Florencia.`}
+ ]},
+ 2:{note:"Día de museos. Empieza temprano subiendo al Campanile y deja los Uffizi para la tarde, que desde las 16:00 la entrada es más barata y hay menos gente.",
+ stops:[
+ {id:"campanile",when:"8:15",name:"Campanile de Giotto",it:"Si no subiste a la cúpula, o además de ella",
+  info:["Con el Brunelleschi Pass o el Giotto Pass (20 €)","414 escalones, sin ascensor","Hoy sábado ya está abierto"],map:"Campanile di Giotto",
+  look:["Los relieves hexagonales de la base: los oficios del hombre","Las ventanas, que se hacen más grandes a medida que sube la torre","Desde arriba, la cúpula de frente: la mejor foto de ella"],
+  text:`El campanario de la catedral es casi tan famoso como la cúpula y, para muchos, todavía más elegante. Lo llaman el campanile de Giotto, aunque Giotto solo vio construir el primer piso.
+
+En 1334, la ciudad nombró maestro de obras de la catedral a Giotto di Bondone, el pintor más famoso de su tiempo, el hombre que había cambiado la pintura europea con los frescos de Asís y de Padua, dando a las figuras peso, volumen y emoción humana. No era arquitecto, pero los florentinos querían al mejor artista para su campanario. Giotto murió en 1337, apenas tres años después de empezar. La obra la continuó Andrea Pisano, que se encargó de buena parte de los relieves, y la terminó Francesco Talenti hacia 1359, que añadió los pisos superiores con sus grandes ventanas.
+
+Antes de subir, rodea la base del campanario y fíjate en los relieves hexagonales de la parte baja. Forman un programa completo sobre la vida humana: la creación de Adán y Eva, y después el trabajo y los conocimientos que hacen al hombre: la agricultura, la caza, el tejido, la navegación, la medicina, la arquitectura, la escultura, la pintura, la música. Hay hasta un relieve de Dédalo volando con sus alas. Es una idea muy florentina: el trabajo humano como algo noble y digno, en una ciudad gobernada precisamente por gremios de oficios. Los originales están en el Museo de la Ópera del Duomo, que entra en tu pase; los que ves son copias.
+
+Mira también las ventanas. En la parte de abajo son pequeñas y estrechas, y a medida que sube la torre se van haciendo más grandes y más abiertas, hasta los grandes ventanales del último piso. Esto no es solo decoración: aligera el peso de la parte alta y da la sensación de que la torre se va haciendo más ligera hacia el cielo. Mide unos ochenta y cinco metros, algo menos que la cúpula, y está forrada con los mismos tres mármoles, blanco, verde y rosa, que dan unidad a toda la plaza.
+
+La subida son cuatrocientos catorce escalones por una escalera de piedra estrecha, pero tiene la ventaja de que hay varias terrazas intermedias para descansar, cada una con vistas más altas. En el camino verás las campanas de la catedral.
+
+Y aquí está el gran secreto del campanario: desde arriba tienes la cúpula de Brunelleschi justo enfrente, enorme y muy cerca, con sus ocho nervios blancos, las tejas rojas y la gente diminuta en la linterna. Es la vista que no puedes tener desde la cúpula, precisamente porque estás encima de ella. Si subiste ayer a la cúpula, ahora la estás viendo desde fuera y entenderás de verdad su tamaño. Arriba hay una reja de protección; mete la cámara del móvil entre los barrotes para las fotos.`},
+ {id:"mercato",when:"13:30",name:"Mercato Centrale",it:"Comida en San Lorenzo",
+  info:["Planta baja: puestos de mercado","Primera planta: patio de comidas","Alrededor, el mercadillo de cuero de San Lorenzo"],map:"Mercato Centrale Firenze",
+  look:["El puesto de lampredotto: pídelo con salsa verde y un poco de picante","La estructura de hierro y cristal del siglo diecinueve","Los puestos de setas y trufas, en plena temporada de noviembre"],
+  text:`Hora de comer como un florentino. Estás en el Mercato Centrale, el gran mercado de abastos de la ciudad, en el barrio de San Lorenzo.
+
+El edificio es de 1874 y lo diseñó Giuseppe Mengoni, el mismo arquitecto de la Galería Vittorio Emanuele de Milán. Es una gran nave de hierro fundido y cristal, muy moderna para su época, construida en los años en que Florencia acababa de ser capital de Italia y quería parecerse a París o a Londres.
+
+En la planta baja está el mercado de verdad, el que usan los vecinos. Date una vuelta por las carnicerías, con los cortes de buey toscano con los que se hace la bistecca alla fiorentina; por los puestos de quesos, con el pecorino toscano; por los embutidos, como la finocchiona, un salami con semillas de hinojo; y por las verdulerías. En noviembre estás en plena temporada de setas porcini y de trufa blanca, que se recoge en las colinas de Toscana, a poca distancia de aquí. También es el momento del aceite nuevo de oliva, el olio nuovo, verde intenso y picante, que los toscanos toman sobre pan tostado con ajo.
+
+En la planta de arriba hay un gran patio de comidas, con puestos de pasta fresca, pizza, carnes y vinos, donde puedes comer un poco de todo sentado en mesas compartidas.
+
+Pero si quieres probar algo de verdad florentino, busca un puesto de lampredotto. El lampredotto es el cuarto estómago de la vaca, cocido durante horas en un caldo con tomate, cebolla, apio y perejil. Se sirve en un panecillo redondo cuyo interior se moja en el mismo caldo, con salsa verde de perejil y alcaparras y, si quieres, un poco de aceite picante. Es la comida de los trabajadores florentinos desde hace siglos, y en la ciudad hay quioscos ambulantes de lampredotto que son toda una institución. Pídelo bagnato, mojado, y con salsa verde. Si no te atreves, la alternativa es un panino con porchetta o un plato de pappardelle con ragú de jabalí.
+
+Al salir del mercado estarás en las calles del mercado de San Lorenzo, llenas de puestos de cuero: bolsos, cinturones, chaquetas y carteras. Florencia tiene una larga tradición de curtido y marroquinería, pero aquí hay de todo, desde piezas buenas hasta productos importados. Tócalo, huélelo y mira las costuras, y no tengas miedo a regatear con amabilidad.
+
+A unos pasos tienes la basílica de San Lorenzo, la iglesia parroquial de los Médici, con su fachada de ladrillo sin terminar. Miguel Ángel diseñó una fachada de mármol para ella que nunca se construyó. Detrás de la iglesia están las Capillas Mediceas, tu siguiente parada si te apetece.`},
+ {id:"capillas",when:"14:30 (opcional)",name:"Capillas Mediceas",it:"Las tumbas de los Médici",
+  info:["Junto a San Lorenzo","Entrada aparte, cierra a media tarde","Unos 45 minutos"],map:"Cappelle Medicee",
+  look:["La Capilla de los Príncipes, forrada de piedras duras","La Sacristía Nueva de Miguel Ángel: la Noche, el Día, la Aurora y el Crepúsculo","La Virgen con el Niño, también de Miguel Ángel, frente al altar"],
+  text:`Estás en el panteón de la familia que hizo Florencia tal como la conoces: los Médici. Empezaron como banqueros, se convirtieron en una de las familias más ricas de Europa y acabaron gobernando la ciudad durante tres siglos, primero de forma discreta y luego como duques y grandes duques de Toscana. Dieron cuatro papas a la Iglesia y dos reinas a Francia. Y pagaron buena parte del arte que vas a ver estos días.
+
+La visita tiene dos partes muy distintas. Primero entras en la cripta, donde están enterrados muchos miembros de la familia, y desde allí subes a la Capilla de los Príncipes. Es una sala octogonal enorme, coronada por una cúpula, y forrada de arriba abajo de mármoles de colores y piedras semipreciosas, como el lapislázuli o el jaspe, encajadas con la técnica florentina de las piedras duras. Se empezó en 1604 para los grandes duques, y era tan cara que tardó muchísimo en terminarse. Fíjate en los escudos de las ciudades de Toscana alrededor de la sala, todos hechos de piedras incrustadas. Es una exhibición de poder y de riqueza casi abrumadora, y para mucha gente, un poco fría.
+
+La segunda parte es la verdadera joya: la Sacristía Nueva, diseñada por Miguel Ángel a partir de 1520 por encargo de los papas Médici. Es una de las pocas obras en las que Miguel Ángel hizo a la vez la arquitectura y las esculturas, y entras en una sala blanca y gris, de piedra serena, luminosa, tranquila y muy intensa al mismo tiempo.
+
+A los lados están las tumbas de dos duques Médici con poca importancia histórica: Lorenzo, duque de Urbino, y Giuliano, duque de Nemours. Cada uno está representado sentado, idealizado, como un general romano; Lorenzo, pensativo, con la mano junto a la barbilla, y Giuliano, más activo. Se cuenta que cuando le dijeron a Miguel Ángel que no se parecían a los retratados, contestó que dentro de mil años a nadie le importaría cómo eran.
+
+Pero lo extraordinario son las figuras recostadas sobre los sarcófagos, que representan el paso del tiempo. Bajo Giuliano, la Noche y el Día. Bajo Lorenzo, la Aurora y el Crepúsculo. La Noche es una mujer dormida, con una lechuza y una máscara a sus pies, símbolos del sueño. El Día es un hombre musculoso, con la cara sin terminar, que se gira hacia ti por encima del hombro. La Aurora parece despertarse con dolor, como si no quisiera abrir los ojos. El Crepúsculo es un hombre cansado que se deja caer. Son figuras que parecen a punto de resbalar de los sarcófagos, llenas de melancolía. Miguel Ángel trabajó en ellas en años muy difíciles, cuando los Médici habían vuelto a apoderarse de Florencia y él, que había defendido la república, tuvo que esconderse durante un tiempo.
+
+Cuando un poeta escribió unos versos elogiando la Noche, diciendo que estaba dormida pero viva, Miguel Ángel respondió con un poema propio en el que la estatua dice que prefiere dormir y ser de piedra mientras duren la vergüenza y el daño de su tiempo. En 1534 dejó Florencia para siempre y la sacristía se quedó sin terminar. Frente al altar está la Virgen con el Niño, también suya, y allí están enterrados, sin un gran monumento, Lorenzo el Magnífico y su hermano Giuliano.`},
+ {id:"santacroce",when:"15:00",name:"Basílica de Santa Croce",it:"El panteón de los grandes italianos",
+  info:["Entrada de pago (unos 10 €)","Unos 45 minutos","La plaza de delante es de las más bonitas"],map:"Basilica di Santa Croce",
+  look:["Las tumbas de Miguel Ángel, Galileo, Maquiavelo y Rossini","El cenotafio de Dante, vacío","Las capillas Bardi y Peruzzi, pintadas por Giotto","El crucifijo de Cimabue dañado por la inundación de 1966"],
+  text:`Estás en la basílica de Santa Croce, la Santa Cruz, una de las iglesias franciscanas más grandes del mundo. Los franciscanos se instalaron aquí, en lo que entonces eran las afueras pobres de la ciudad, porque su misión era predicar entre la gente humilde. La iglesia actual se empezó en 1294, probablemente con un proyecto de Arnolfo di Cambio, el mismo arquitecto de la catedral y del Palazzo Vecchio. Como la catedral, se quedó sin fachada durante siglos, y la de mármol que ves es del siglo diecinueve. Fíjate en la estrella de seis puntas en lo alto: el arquitecto, Niccolò Matas, era judío y la incluyó en su obra.
+
+Delante de la iglesia, la plaza de Santa Croce era el lugar de los grandes espectáculos de la ciudad: torneos, fiestas y partidos de calcio storico, el fútbol florentino del Renacimiento, una mezcla brutal de fútbol, rugby y lucha que todavía se juega cada junio en esta plaza.
+
+Entra. El interior es enorme, con techo de madera, y lo que lo convierte en un lugar único es que aquí descansan algunos de los grandes de Italia. Por eso lo llaman el templo de las glorias italianas.
+
+Nada más entrar, a la derecha, está la tumba de Miguel Ángel, diseñada por Vasari, con tres figuras que representan la Pintura, la Escultura y la Arquitectura. Miguel Ángel murió en Roma en 1564, con casi ochenta y nueve años, pero había pedido volver a su ciudad, así que su sobrino sacó el cuerpo de Roma a escondidas, embalado como si fuera mercancía, y lo trajo hasta aquí.
+
+Un poco más adelante está el monumento a Dante Alighieri, el padre de la lengua italiana. Pero está vacío. Florencia lo condenó al destierro en 1302 por razones políticas, con pena de muerte si volvía, y Dante murió en Rávena en 1321. Siglos después, Florencia reclamó sus restos, pero Rávena siempre se ha negado a devolverlos. Los frailes de Rávena llegaron a esconder los huesos para que no se los llevaran.
+
+Siguiendo por la derecha verás la tumba de Nicolás Maquiavelo, el autor de El Príncipe, y más allá la del compositor Gioachino Rossini, el de El barbero de Sevilla.
+
+Ahora cruza al lado izquierdo. Allí está la tumba de Galileo Galilei. Galileo, que defendió con su telescopio que la Tierra giraba alrededor del Sol, fue condenado por la Inquisición en 1633 y murió bajo arresto domiciliario en una villa en las colinas de Florencia. No se le permitió un sepulcro solemne, y su cuerpo estuvo casi cien años en un pequeño espacio apartado de la iglesia, hasta que en 1737 se le trasladó aquí. Una curiosidad: Galileo nació en 1564, el mismo año en que murió Miguel Ángel, como si uno pasara el testigo al otro.
+
+Antes de salir, ve hacia el altar mayor y busca a la derecha las capillas Bardi y Peruzzi. Están pintadas por Giotto con escenas de la vida de San Francisco y de los santos Juanes. Están algo deterioradas, pero son la base de toda la pintura del Renacimiento: por primera vez los personajes lloran, se emocionan y ocupan un espacio real. Mira en la capilla Bardi la muerte de San Francisco, con los frailes que se inclinan sobre su cuerpo.
+
+Y no te pierdas, en el museo del claustro, el gran crucifijo de Cimabue, el maestro de Giotto. En la inundación del cuatro de noviembre de 1966, el agua del Arno llegó aquí a varios metros de altura y lo dañó gravemente. Su restauración se convirtió en el símbolo de los ángeles del barro, los miles de jóvenes voluntarios que vinieron de todo el mundo a salvar el arte de Florencia.
+
+Para terminar: en 1817 el escritor francés Stendhal salió de esta iglesia tan abrumado por la belleza que sintió palpitaciones y casi se desmaya. Desde entonces, a ese mareo ante el exceso de arte se le llama el síndrome de Stendhal. Los médicos de Florencia todavía lo ven de vez en cuando en turistas.`},
+ {id:"uffizi",when:"16:00",name:"Galleria degli Uffizi",it:"La pinacoteca del Renacimiento",
+  info:["Entrada desde las 16:00: 16 € en taquilla o 20 € online","Abre hasta las 18:30","Normal: 25 € / 29 € online"],map:"Galleria degli Uffizi",
+  link:{href:"https://www.uffizi.it/en/tickets",label:"Entradas"},
+  look:["Botticelli: El Nacimiento de Venus y La Primavera, una frente a otra","La Anunciación de Leonardo","El Tondo Doni de Miguel Ángel","La Venus de Urbino de Tiziano","Caravaggio: la cabeza de Medusa","Las ventanas del pasillo sobre el río"],
+  text:`Estás en uno de los museos de pintura más importantes del mundo. Tienes unas dos horas y media, así que te voy a guiar por lo esencial.
+
+Primero, el edificio. Uffizi significa oficinas. En 1560, el duque Cosme primero de Médici encargó a Giorgio Vasari un edificio para reunir las oficinas de la administración junto al Palazzo Vecchio. Vasari diseñó esta larga construcción en forma de U, abierta hacia el río. Poco después, el hijo de Cosme, Francisco, empezó a usar el último piso como galería para la colección de arte y antigüedades de la familia. Y así, durante dos siglos, los Médici fueron llenándolo de tesoros. Cuando se extinguió la familia, la última heredera, Ana María Luisa de Médici, firmó en 1737 un acuerdo con los nuevos gobernantes: toda la colección se quedaría para siempre en Florencia, para el disfrute de todos. Gracias a ella sigue aquí.
+
+Sube hasta el segundo piso. En los largos pasillos verás estatuas romanas y el techo pintado. Las primeras salas son del arte gótico. Fíjate en las tres grandes Vírgenes en majestad de Cimabue, Duccio y Giotto, colocadas juntas en la misma sala. Se nota el cambio: la de Giotto ya tiene cuerpo, peso, está sentada de verdad en el trono.
+
+Sigue hasta las salas de Botticelli, el gran momento de la visita. Allí están sus dos obras más famosas.
+
+El Nacimiento de Venus muestra a la diosa del amor llegando a la orilla de pie sobre una concha, desnuda, empujada por los vientos que soplan desde la izquierda, mientras a la derecha una figura femenina la espera con un manto bordado de flores. Es uno de los primeros grandes desnudos femeninos desde la Antigüedad. Fíjate en la postura de Venus, inspirada en estatuas clásicas, y en lo irreal de su cuerpo: el cuello demasiado largo, el hombro caído. A Botticelli no le interesaba el realismo, sino la belleza ideal, la idea de que la belleza terrenal es un reflejo de la belleza divina.
+
+La Primavera es un jardín de naranjos lleno de figuras. Se lee de derecha a izquierda: Céfiro, el viento azulado, persigue a la ninfa Cloris, de cuya boca salen flores y que se transforma en Flora, la mujer del vestido de flores. En el centro está Venus, y sobre ella vuela Cupido apuntando una flecha a las tres Gracias que bailan. A la izquierda, Mercurio aparta las nubes. Los botánicos han identificado en el cuadro cerca de doscientas especies de plantas. Su significado exacto sigue siendo un misterio y se discute desde hace siglos.
+
+Después busca a Leonardo da Vinci. Su Anunciación la pintó muy joven, todavía en el taller de Verrocchio. Fíjate en el ángel, con alas inspiradas en pájaros de verdad, y en el paisaje del fondo, difuminado por la neblina. Cerca está la Adoración de los Magos, que Leonardo dejó sin terminar al irse a Milán, y que permite ver cómo construía sus composiciones.
+
+Busca también la Tribuna, una sala octogonal roja con una cúpula decorada con nácar: era la sala de los tesoros de los Médici. Y luego el Tondo Doni, de Miguel Ángel: un cuadro redondo de la Sagrada Familia, con colores brillantes y figuras tan musculosas que parecen esculturas. Es la única pintura sobre tabla terminada de Miguel Ángel que se conserva con seguridad.
+
+Antes de pasar al otro brazo del edificio, asómate a las ventanas del pasillo que da al río. Tienes una vista preciosa del Ponte Vecchio con el Corredor Vasariano por encima, justo cuando cae la tarde.
+
+En el primer piso están Rafael, con la Virgen del jilguero, y Tiziano, con la Venus de Urbino, una mujer desnuda tumbada en una cama que te mira directamente, con un perrito a sus pies; inspiró a Manet siglos después. Y termina con Caravaggio: la cabeza de Medusa pintada sobre un escudo redondo, con las serpientes retorciéndose y un grito congelado en el momento de su muerte, y el Baco, un joven que te ofrece una copa de vino.
+
+Si te queda un momento antes del cierre, la cafetería tiene una terraza con vistas a la Plaza de la Señoría y a la torre del Palazzo Vecchio.`},
+ {id:"santospirito",when:"Noche",name:"Oltrarno y Santo Spirito",it:"Para cenar al otro lado del río",
+  info:["Cruza el Ponte Vecchio y sigue recto","Plaza llena de bares y trattorias"],map:"Piazza Santo Spirito",
+  look:["La fachada lisa y sin terminar de Santo Spirito","Si está abierta, el interior de columnas grises de Brunelleschi","Los talleres de artesanos en las callejuelas"],
+  text:`Para despedirte de Florencia, cruza el Ponte Vecchio hacia el sur. Estás entrando en el Oltrarno, que significa al otro lado del Arno. Es el barrio de los artesanos, el más auténtico de Florencia, con menos turistas y más vida de barrio.
+
+Aquí, desde hace siglos, trabajan los restauradores de muebles, los doradores, los encuadernadores, los fabricantes de marcos, los zapateros a mano y los orfebres. Si paseas por las calles de alrededor verás talleres con las puertas abiertas, donde se trabaja la madera, el pan de oro o el cuero casi igual que en el Renacimiento. Florencia sigue siendo una de las grandes capitales de la restauración, en buena parte gracias a todo lo que se aprendió tras la inundación de 1966.
+
+El corazón del barrio es la Plaza de Santo Spirito, una plaza alargada con árboles y una fuente, rodeada de bares y trattorias. Al fondo está la basílica del Espíritu Santo, con una de las fachadas más extrañas de Italia: completamente lisa, de color crema, con solo unas volutas en la parte de arriba. Nunca se terminó la decoración. Pero lo importante está dentro. Es uno de los últimos grandes proyectos de Filippo Brunelleschi, el de la cúpula, que lo diseñó poco antes de morir. Si puedes asomarte, verás un interior hecho de matemáticas: columnas de piedra gris, la piedra serena, sobre paredes blancas, con proporciones que se repiten por todo el espacio. Es la idea del Renacimiento en estado puro: la armonía y la razón. La iglesia guarda además un crucifijo de madera que se atribuye a un Miguel Ángel muy joven, que según la tradición estudió anatomía en el hospital de este convento.
+
+Por la noche, la plaza se llena de florentinos tomando el aperitivo, un spritz o un vaso de vino tinto, el Chianti de las colinas que rodean la ciudad. Y en las calles cercanas hay trattorias de toda la vida para cenar.
+
+Si quieres la cena florentina por excelencia, pide una bistecca alla fiorentina. Es un chuletón de buey con el hueso en forma de T, de varios dedos de grosor, y se cobra al peso; lo normal es más o menos un kilo para dos personas. Se hace a la brasa, solo con sal y aceite, y se sirve siempre poco hecho, al sangue. Si la pides bien hecha, el camarero te mirará con pena, y en algunos sitios directamente no te la sirven así. Para acompañarla, unas judías blancas con aceite, los fagioli; por algo a los toscanos los llaman en Italia mangiafagioli, comedores de judías.
+
+De postre, prueba los cantucci, galletas de almendra que se mojan en vin santo, un vino dulce de la región. Y si te apetece un último paseo, vuelve hacia el río: desde la orilla, el Ponte Vecchio iluminado de noche es una despedida perfecta de Florencia.`}
+ ]}
+};
+
+const EXTRA = {};
+EXTRA.duomo = [
+{t:"Lo que había antes: Santa Reparata",text:`Antes de esta catedral, en este mismo sitio había otra iglesia mucho más pequeña, dedicada a Santa Reparata, una joven mártir que fue durante siglos la patrona de Florencia. Era una iglesia de origen paleocristiano, reformada varias veces, y a finales del siglo trece se había quedado ridícula para una ciudad que crecía sin parar y que rivalizaba con Pisa y con Siena, que estaban levantando catedrales espectaculares.
+
+En 1296 se decidió construir una nueva sobre la antigua, y el encargo fue para Arnolfo di Cambio, un escultor y arquitecto que también trabajó en el Palazzo Vecchio y probablemente en Santa Croce. Mientras se construía la nueva, la vieja siguió usándose, y se fue derribando poco a poco a medida que avanzaba la obra. Los restos de Santa Reparata quedaron enterrados bajo el suelo de la catedral y se olvidaron durante siglos, hasta que se excavaron en los años sesenta y setenta del siglo veinte. Con tu pase puedes bajar a esa cripta: verás restos de mosaicos de suelo, pinturas y tumbas.
+
+Y allí abajo hubo una sorpresa. En 1972, durante las excavaciones, apareció una losa con el nombre de Filippo Brunelleschi. Era su tumba, que se conocía por los documentos pero no se había localizado. Al hombre que hizo posible la cúpula lo enterraron justo debajo de ella.
+
+¿Quién pagaba todo esto? No la Iglesia, sino la ciudad. A partir de 1331, la responsabilidad de la obra pasó al Arte della Lana, el poderoso gremio de los comerciantes de lana, que la financiaba con impuestos y donaciones y gestionaba la Ópera del Duomo, la institución que todavía hoy cuida de la catedral, del campanario y del baptisterio. Por eso verás en muchos sitios de la plaza el símbolo del gremio, un cordero con una bandera. La catedral era un proyecto cívico, un orgullo de los ciudadanos, y en ella se decidía la imagen de Florencia ante el mundo.`},
+{t:"El baptisterio por dentro",text:`Si tienes tiempo de entrar en el baptisterio con tu pase, merece mucho la pena, porque por dentro es completamente distinto a lo que ves fuera.
+
+El interior es un gran espacio octogonal, y lo que te deja sin palabras es el techo: una cúpula entera cubierta de mosaicos dorados de los siglos trece y catorce, hechos por artistas venecianos y florentinos. En el centro, sobre el altar, hay un Cristo enorme del Juicio Final, de unos ocho metros, con los brazos abiertos. A su derecha, los justos suben al cielo; a su izquierda, los condenados caen en el infierno, donde un diablo con cuernos devora a los pecadores. Se dice que Dante, que de niño veía este mosaico cada vez que entraba, pudo inspirarse en él para el Infierno de la Divina Comedia. Ten en cuenta que en estos años se están restaurando los mosaicos de la bóveda, así que puede que veas parte cubierta por andamios.
+
+A la derecha del altar hay una tumba muy especial: la del antipapa Juan veintitrés, Baldassarre Cossa, un personaje polémico que fue depuesto en el concilio de Constanza. Era amigo de los Médici, que pagaron este sepulcro, obra de Donatello y Michelozzo. Que un papa depuesto tuviera un monumento en el lugar más sagrado de Florencia provocó una queja formal del papa de Roma. Los florentinos respondieron con evasivas y la tumba se quedó.
+
+El baptisterio tiene tres puertas de bronce, y su historia es la del nacimiento del Renacimiento. La primera, la del sur, es de Andrea Pisano, de la década de 1330, todavía gótica. En 1401, la ciudad convocó un concurso para hacer la segunda. Se presentaron los mejores orfebres, y todos tuvieron que hacer un panel de prueba con el mismo tema, el sacrificio de Isaac. Los dos finalistas fueron un joven Lorenzo Ghiberti y Filippo Brunelleschi. Ganó Ghiberti. Los dos paneles finalistas se conservan hoy en el Museo del Bargello, uno al lado del otro, y es fascinante compararlos. Brunelleschi se lo tomó tan mal que abandonó la escultura y se fue a Roma a estudiar arquitectura, y de esa derrota nació, años después, la cúpula.
+
+Ghiberti hizo la puerta norte durante más de veinte años, y le salió tan bien que le encargaron también la tercera, la del Paraíso. Busca en el marco de esa puerta, entre las cabezas que la decoran, una cabeza calva con expresión satisfecha: es el autorretrato de Ghiberti, firmando su obra maestra.`},
+{t:"Curiosidades de la plaza",text:`Algunas curiosidades para que mires la plaza con otros ojos.
+
+Primera: la bola dorada que corona la linterna de la cúpula, con su cruz encima, la hizo el taller de Andrea del Verrocchio y se colocó en 1471. En ese taller trabajaba entonces como aprendiz un joven Leonardo da Vinci, y años después él mismo recordaría en sus notas cómo se soldaron las piezas de cobre. En 1600 un rayo derribó la bola, que cayó a la plaza. Según la tradición, detrás de la catedral hay un disco de mármol blanco en el suelo que marca el lugar donde se estrelló. Se colocó una nueva, más grande, y desde entonces la cúpula tiene pararrayos.
+
+Segunda: en uno de los edificios del lado sur de la plaza hay una placa que dice Sasso di Dante, la piedra de Dante. Según la tradición, era una piedra donde el poeta se sentaba a ver cómo avanzaban las obras de la catedral y a tomar el fresco. Es probablemente una leyenda, pero a los florentinos les encanta.
+
+Tercera: dentro de la catedral, en la pared izquierda, hay dos grandes retratos ecuestres que parecen estatuas de bronce sobre pedestales, pero son pinturas. Uno es de Paolo Uccello y representa a John Hawkwood, un mercenario inglés al que los florentinos llamaban Giovanni Acuto, que luchó para la ciudad. El otro, de Andrea del Castagno, es de Niccolò da Tolentino. Florencia les había prometido monumentos de bronce, pero salía más barato pintarlos.
+
+Y cuarta: también en la pared izquierda hay un cuadro de 1465, de Domenico di Michelino, que muestra a Dante con la Divina Comedia abierta, y a su lado la ciudad de Florencia, con la cúpula ya terminada, y al otro lado el infierno, el purgatorio y el paraíso. Es la forma en que la ciudad pidió perdón al poeta que había desterrado: ponerlo en su catedral, con un libro que ilumina a la ciudad.`}
+];
+EXTRA.cupula = [
+{t:"Brunelleschi contra Ghiberti, segundo asalto",text:`Lo que casi nadie cuenta es que Brunelleschi no ganó la cúpula solo. Los responsables de la obra, desconfiados ante un proyecto tan arriesgado, nombraron en 1420 a dos directores con el mismo sueldo: Brunelleschi y su eterno rival, Lorenzo Ghiberti, el que le había ganado las puertas del baptisterio. Brunelleschi estaba furioso, porque Ghiberti apenas entendía el sistema y cobraba lo mismo.
+
+Cuenta Vasari, el gran biógrafo de los artistas del Renacimiento, una anécdota que puede estar adornada pero que retrata bien a Brunelleschi. Un día, en un momento clave de la obra, Brunelleschi no apareció. Mandó decir que estaba enfermo, con dolor de costado, y se quedó en cama. Los obreros fueron a preguntar a Ghiberti qué hacer, y Ghiberti no supo responder. La obra se paró. Después de varios días de caos, quedó claro quién sabía construir la cúpula y quién no. Con el tiempo, Ghiberti fue apartándose del proyecto y Brunelleschi se quedó al mando.
+
+Brunelleschi tenía un carácter difícil. En 1434, en plena obra, llegó a ser encarcelado por unos días por no pagar la cuota al gremio de los canteros y carpinteros, que se tomó la venganza por su independencia. Los responsables de la catedral tuvieron que intervenir para sacarlo, porque sin él la obra no avanzaba.
+
+Cuando la cúpula se cerró, se convocó otro concurso para la linterna, la pequeña torre de mármol que corona todo. Volvió a ganar Brunelleschi. La linterna no es un adorno: su peso aprieta la cúpula hacia abajo y ayuda a mantener unido el anillo superior, como la piedra que cierra un arco. Brunelleschi murió poco después de empezarla, y la terminaron sus colaboradores siguiendo su modelo.`},
+{t:"Cómo se construyó, paso a paso",text:`Ahora que estás subiendo, entiende lo que ves a tu alrededor.
+
+La cúpula tiene ocho caras, porque se apoya sobre el tambor octogonal que ya existía. Cada cara es una vela curva, y en las esquinas están los ocho grandes nervios de mármol blanco que ves desde fuera. Entre la cúpula interior y la exterior hay un espacio por el que tú caminas, con escaleras y pasillos que usaban los obreros. Por dentro, las dos cúpulas están unidas por nervios y arcos que las convierten en una sola estructura muy rígida.
+
+El gran problema era que una cúpula tiende a abrirse hacia fuera, como una flor, empujada por su propio peso. Brunelleschi lo resolvió con cadenas: anillos de grandes bloques de piedra arenisca unidos con grapas de hierro, que rodean la cúpula a distintas alturas como los aros de un barril. Hubo también al menos una cadena de madera de castaño. Esas cadenas están escondidas dentro de la estructura.
+
+Luego está la espina de pez, los ladrillos en espiga. Cada cierto trecho, en cada hilada horizontal, Brunelleschi colocaba un ladrillo de pie, en vertical. Esos ladrillos verticales formaban unas líneas en zigzag que subían por la cúpula. Gracias a ellos, cada hilada recién puesta, que todavía no había fraguado, quedaba encajada entre dos ladrillos verticales y no podía deslizarse hacia dentro. Fíjate en las paredes del pasillo, porque en algunos tramos se ve claramente.
+
+Las máquinas eran tan avanzadas que, décadas después, un joven Leonardo da Vinci las dibujó en sus cuadernos para estudiarlas. La más famosa era una grúa movida por bueyes que daban vueltas a un eje. Con un sistema de engranajes, la carga podía subir o bajar sin tener que cambiar el sentido de marcha de los animales, ahorrando muchísimo tiempo. También diseñó una grúa giratoria para colocar las piedras arriba con precisión.
+
+Se calcula que la cúpula pesa decenas de miles de toneladas. Con los siglos han aparecido grietas, que hoy se vigilan con sensores electrónicos de forma continua. Los ingenieros siguen estudiando este edificio, y todavía no hay acuerdo total sobre algunos detalles de cómo se hizo, porque Brunelleschi no dejó escrito su método completo.`},
+{t:"El Juicio Final de cerca",text:`Cuando llegues a la galería interior, a media subida, tendrás los frescos del Juicio Final a pocos metros. Mira bien, porque desde abajo es imposible apreciar esto.
+
+Durante más de un siglo, el interior de la cúpula estuvo blanco, sin decorar. Fue el gran duque Cosme primero de Médici quien decidió pintarlo, y se lo encargó a su artista de confianza, Giorgio Vasari, el mismo que construyó los Uffizi y el corredor. Vasari empezó en 1572, pero murió dos años después, cuando solo había pintado la parte superior. Lo terminó Federico Zuccari, un pintor de otra escuela, que cambió la técnica: Vasari pintó al fresco, sobre el yeso húmedo, y Zuccari en buena parte en seco, sobre el yeso ya seco, y por eso sus zonas se han conservado peor.
+
+La composición está organizada en anillos. Arriba del todo, alrededor de la linterna, ángeles y ancianos del Apocalipsis. Debajo, Cristo juez con la Virgen y los santos. Y en el anillo inferior, el más cercano a ti, el infierno, con diablos de aspecto grotesco, cuerpos retorcidos y los pecados capitales. Es una pintura gigantesca, y verás figuras de varios metros de altura.
+
+Zuccari se tomó algunas libertades. Pintó a personas reales entre las figuras, y se suele decir que hay retratos suyos, de amigos y de personajes de la corte. Cuando se terminó, la pintura no gustó a todo el mundo: muchos florentinos pensaban que estropeaba la pureza de la arquitectura de Brunelleschi, y durante un tiempo se llegó a hablar de borrarla. Por suerte no se hizo, y entre 1981 y 1994 se restauró por completo.
+
+Desde la galería mira también hacia abajo, al suelo de mármol de colores de la catedral, que desde aquí se ve como un dibujo perfecto. Y piensa que esa altura, más de cincuenta metros, es solo la mitad del camino.`}
+];
+EXTRA.orsanmichele = [
+{t:"Las estatuas, una a una",text:`Si quieres jugar a los detectives, rodea el edificio despacio y fíjate en estas estatuas, que cuentan cómo cambió el arte en apenas veinte años.
+
+En la fachada que da a Via dei Calzaiuoli busca el San Juan Bautista de Lorenzo Ghiberti, hecho entre 1412 y 1416 para el gremio de Calimala, los comerciantes de paño. Es de bronce y mide más de dos metros y medio. Puede parecer poca cosa, pero fue la primera gran estatua de bronce de este tamaño hecha en Florencia desde la Antigüedad. Fundir en bronce algo tan grande era carísimo y muy arriesgado, y solo los gremios más ricos podían permitírselo. Los gremios más modestos usaban mármol.
+
+Busca después el San Marcos de Donatello, para el gremio de los tejedores de lino. Se cuenta que, cuando los cónsules del gremio vieron la estatua en el taller, a la altura del suelo, no les gustó nada. Donatello les pidió que le dejaran colocarla en su hornacina y retocarla allí. La subió, la tapó unos días sin tocarla, y cuando la descubrieron, los mismos que la habían criticado la elogiaron. Donatello la había tallado pensando en cómo se vería desde abajo y desde la calle. Una lección de perspectiva.
+
+El grupo de los Cuatro Santos Coronados, de Nanni di Banco, es para el gremio de los maestros de piedra y madera, es decir, los propios escultores. Son cuatro escultores cristianos martirizados por negarse a tallar un ídolo pagano. Fíjate cómo parecen senadores romanos hablando entre ellos: es el mundo antiguo resucitando en la Florencia del siglo quince. Debajo hay un relieve con escultores trabajando en su taller.
+
+El San Jorge de Donatello, para los armeros, es quizá la más famosa. Debajo tenía un relieve de San Jorge matando al dragón en el que Donatello usa una técnica llamada stiacciato, relieve aplastado, de apenas unos milímetros, que crea sensación de profundidad casi como una pintura. Es uno de los primeros ejemplos de perspectiva en escultura.
+
+Y por último, el Santo Tomás de Verrocchio. Esa hornacina tenía antes una estatua de Donatello de otro santo, para el partido güelfo, que cuando perdió poder vendió su nicho al tribunal de comercio. Verrocchio tardó años en hacer este grupo, y resolvió un problema difícil: meter dos figuras en una hornacina pensada para una. Su solución fue sacar a Santo Tomás hacia fuera, casi a la calle.`},
+{t:"Por dentro: el tabernáculo de la peste",text:`Si la iglesia está abierta, entra un momento, aunque sea para ver una sola cosa: el gran tabernáculo de mármol, oro y piedras de colores que hay en una esquina. Es obra de Andrea Orcagna y se terminó en 1359.
+
+Su historia es la de la gran peste negra de 1348, que mató probablemente a más de la mitad de los florentinos en pocos meses. En medio del horror, miles de personas vinieron a rezar ante la imagen de la Virgen de este lugar, y dejaron limosnas y herencias enormes, convencidas de que la Virgen los protegería. Con todo ese dinero se pagó este tabernáculo, uno de los más ricos de Italia, para guardar la pintura de la Virgen que hizo Bernardo Daddi en 1347, justo antes de la epidemia. La pintura que ves dentro es esa.
+
+Fíjate en la parte de atrás del tabernáculo, donde Orcagna esculpió la muerte y la asunción de la Virgen, y donde, según se cree, se retrató a sí mismo entre los apóstoles.
+
+Mira también los pilares. En algunos verás pinturas de santos, cada uno patrón de un gremio. Y arriba, en los pisos superiores, está el antiguo granero, hoy convertido en museo donde se guardan las estatuas originales de las hornacinas. Ese museo abre solo algunos días y en horarios limitados, así que si lo encuentras abierto, es una suerte: verás las estatuas de bronce y mármol de cerca, sin el desgaste de la calle, en una gran sala de vigas de madera con vistas a la ciudad.`}
+];
+EXTRA.signoria = [
+{t:"La república, los Médici y la conjura de los Pazzi",text:`Para entender esta plaza tienes que imaginar cómo funcionaba la república florentina. El gobierno, la Señoría, estaba formado por nueve personas, los priores y el gonfaloniero de justicia. No se elegían por votación: los nombres de los ciudadanos con derecho a gobernar se metían en bolsas de cuero, y cada dos meses se sacaban a sorteo. Los elegidos vivían en el palacio durante su mandato, comían juntos y apenas podían salir. La idea era evitar que nadie acumulara demasiado poder.
+
+En la práctica, el que controlaba quién entraba en las bolsas controlaba el gobierno. Y eso es lo que hicieron los Médici. En 1433, Cosme de Médici, llamado el Viejo, el gran banquero, fue arrestado por sus enemigos, los Albizzi, y encerrado en una pequeña celda de la torre del palacio, que llamaban el Alberghetto, el hotelito. Temía que lo envenenaran y se dice que pasó días sin comer. Al final, en lugar de ejecutarlo, lo desterraron. Un año después, en 1434, volvió triunfante, y desde entonces los Médici gobernaron Florencia durante sesenta años sin tener ningún cargo oficial, controlando las bolsas y los votos desde su palacio.
+
+El momento más dramático llegó en 1478. La familia Pazzi, banqueros rivales, con el apoyo del papa Sixto cuarto, organizó un complot para matar a Lorenzo de Médici, el Magnífico, y a su hermano Giuliano. Atacaron durante la misa en la catedral. Giuliano murió acuchillado. Lorenzo, herido en el cuello, se refugió en la sacristía y sobrevivió. Mientras tanto, otros conspiradores, entre ellos el arzobispo de Pisa, Francesco Salviati, intentaron tomar el Palazzo Vecchio, pero fracasaron.
+
+La venganza fue inmediata. Los conspiradores fueron ahorcados en las ventanas de este palacio, a la vista de toda la plaza, el arzobispo incluido, todavía con sus ropas eclesiásticas. Uno de los asesinos, Bernardo Baroncelli, huyó hasta Constantinopla, pero el sultán lo devolvió a Florencia, y fue ahorcado al año siguiente. Leonardo da Vinci, que estaba en Florencia, hizo un dibujo de su cuerpo colgado, con anotaciones sobre los colores de su ropa. Ese dibujo se conserva hoy en un museo de Francia.`},
+{t:"Las estatuas de la plaza",text:`Ahora pasea por la plaza y mira las estatuas, porque cada una tiene su mensaje político.
+
+Junto a la puerta del palacio, a la izquierda del David, hay una copia de la Judit y Holofernes de Donatello, en bronce: la viuda judía a punto de cortar la cabeza al general enemigo. El original está dentro del palacio. Al principio estaba en el palacio de los Médici, pero cuando los Médici fueron expulsados en 1494, la república se la llevó y la puso aquí, como advertencia contra los tiranos.
+
+Al lado verás un león sentado que sujeta un escudo con el lirio de Florencia. Es el Marzocco, el león símbolo de la ciudad. Este también es una copia de una obra de Donatello, cuyo original está en el Bargello. En la Edad Media, Florencia llegó a tener leones vivos en una jaula cerca de aquí, y a la calle se le llama todavía via dei Leoni.
+
+En el centro de la plaza está la gran estatua ecuestre de Cosme primero de Médici, obra de Giambologna, de finales del siglo dieciséis. Cosme fue el primer gran duque de Toscana, el que acabó con la república para siempre y convirtió a los Médici en monarcas. La estatua lo presenta como un emperador romano a caballo, dominando la plaza que antes era de la república.
+
+Y una curiosidad para buscar: en la fachada del Palazzo Vecchio, en la esquina de la derecha, junto a la puerta, hay grabado en la piedra el perfil de una cara de hombre. Lo llaman el importuno de Miguel Ángel. Según la leyenda, Miguel Ángel lo grabó a escondidas, de espaldas a la pared, mientras un pesado le daba conversación, o para retratar a un condenado que llevaban a ejecutar. Nadie sabe si es verdad, pero merece la pena buscarlo. Está a la altura de los ojos, más o menos.
+
+En la Loggia, además del Perseo y las Sabinas, verás un grupo de Hércules y el centauro Neso, y una estatua antigua romana de Menelao sujetando el cuerpo de Patroclo, un tema de la Ilíada. Las dos grandes figuras de leones de la escalera, una antigua y otra del siglo dieciséis, se trajeron de Roma por los Médici.`},
+{t:"Dentro del palacio y el misterio de Leonardo",text:`Si entras en el Palazzo Vecchio, estas son las claves para no perderte nada.
+
+La gran sala, el Salón de los Quinientos, se construyó en 1494 para el Gran Consejo, la asamblea popular que crearon los florentinos cuando expulsaron a los Médici, inspirados por Savonarola. Llegaron a ser cerca de quinientos miembros, y de ahí el nombre. Para decorarla, la república encargó dos enormes pinturas de batallas que debían celebrar victorias florentinas: la batalla de Anghiari a Leonardo da Vinci y la batalla de Cascina a Miguel Ángel, el uno frente al otro, los dos mayores artistas de su tiempo compitiendo en la misma sala.
+
+Ninguna se terminó. Miguel Ángel solo hizo el dibujo preparatorio, el cartón, antes de que el papa lo llamara a Roma. Leonardo empezó a pintar la suya, pero experimentó con una técnica nueva que no funcionó: los colores no secaban bien y empezaron a correrse. Abandonó la obra hacia 1506.
+
+Décadas después, Cosme primero mandó a Vasari renovar la sala, y Vasari pintó encima las grandes batallas que ves hoy, con las victorias de Cosme sobre Pisa y Siena. Aquí empieza el misterio. En una de esas pinturas, la batalla de Marciano, hay una pequeña bandera verde con dos palabras: cerca trova, busca y encontrarás. Algunos investigadores creen que Vasari, que admiraba a Leonardo, no destruyó su pintura, sino que construyó una pared delante para protegerla, y dejó esa pista. Se han hecho estudios y pequeñas perforaciones en busca de restos de la obra de Leonardo, con resultados discutidos. El misterio sigue abierto.
+
+En la misma sala está el Genio de la Victoria de Miguel Ángel, un joven que somete a un anciano, pensado para la tumba del papa Julio segundo. Desde la sala se llega al Studiolo de Francisco primero, un pequeño gabinete sin ventanas, forrado de pinturas, donde el gran duque guardaba sus objetos más preciosos y hacía experimentos de alquimia. Y no te pierdas la Sala de los Mapas, con armarios pintados con mapas de todo el mundo conocido en el siglo dieciséis, y un gran globo terráqueo en el centro.
+
+Si te sientes con fuerzas, la torre de Arnolfo se sube con una entrada aparte, pero cierra con mal tiempo y tiene horarios más cortos. Desde arriba se ve la cúpula de frente, por encima de los tejados.`}
+];
+EXTRA.ponte = [
+{t:"El río, las riadas y los puentes",text:`El Arno parece un río tranquilo, pero ha sido el gran enemigo de Florencia. El puente anterior a este fue destruido por una terrible riada en 1333, que arrasó media ciudad. El puente que ves se reconstruyó en 1345, y su diseño se atribuye tradicionalmente al pintor Taddeo Gaddi, discípulo de Giotto, aunque hay historiadores que lo atribuyen a otro maestro, Neri di Fioravanti. Sus tres arcos son muy rebajados, más anchos que altos, y eso permitió que tuviera menos pilares en el agua y resistiera mejor las crecidas.
+
+La gran riada moderna fue la del cuatro de noviembre de 1966. Después de días de lluvia sin parar, el Arno se desbordó por la noche. El agua y el barro, mezclados con gasóleo de las calefacciones, entraron en iglesias, museos, bibliotecas y talleres. Murieron decenas de personas, y miles de obras de arte y millones de libros quedaron dañados. Si te fijas, en muchas calles del centro hay pequeñas placas en las paredes que marcan hasta dónde llegó el agua, algunas a varios metros de altura. Búscalas mientras paseas.
+
+Mira ahora el puente siguiente, río abajo: el puente de Santa Trinita. Es para muchos arquitectos el puente más elegante del mundo, con arcos de curva muy suave, diseñado en el siglo dieciséis por Bartolomeo Ammannati, posiblemente con ideas de Miguel Ángel. En 1944 los alemanes lo volaron. Después de la guerra, los florentinos decidieron reconstruirlo exactamente igual, com'era e dov'era, como era y donde estaba, recuperando las piedras originales del fondo del río. En sus extremos hay cuatro estatuas de las estaciones. La de la Primavera perdió la cabeza con la explosión, y no se encontró hasta 1961, cuando unos operarios la sacaron del lecho del Arno. Hoy vuelve a estar en su sitio.`},
+{t:"Joyeros, cambistas y el corredor por dentro",text:`El Ponte Vecchio ha sido siempre un lugar de dinero. En la Florencia medieval, los cambistas y banqueros trabajaban sobre bancos de madera en la calle, y se suele contar que cuando uno quebraba, le rompían el banco, banco rotto, y de ahí vendría la palabra bancarrota. Sea verdad o una bonita etimología popular, en esta ciudad de banqueros tiene mucho sentido.
+
+Las tiendas del puente son pequeñas y de una sola pieza, y antiguamente se cerraban con unas grandes puertas de madera, los madielle, que todavía se ven en algunas por la noche, como cofres de madera cerrados con barras de hierro. Muchas de estas joyerías pertenecen a las mismas familias desde hace generaciones.
+
+Y vuelve a mirar el Corredor Vasariano. Durante décadas solo se podía visitar en ocasiones especiales, pero tras una larga restauración se reabrió al público a finales de 2024, y hoy se puede recorrer con una entrada combinada con los Uffizi, que hay que reservar con antelación. Por dentro es un pasillo largo y sencillo, con ventanas que dan a la ciudad y al río.
+
+Las ventanas grandes que ves justo en el centro del puente, más amplias que las demás, tienen una historia curiosa. Se abrieron en 1938 por orden de Mussolini para la visita de Hitler a Florencia, para que el dictador alemán pudiera disfrutar de la vista desde el corredor. Quizá por eso, se dice, Hitler le tenía cariño al puente.
+
+Cuando cruces el puente hacia el otro lado, verás que el corredor gira a la izquierda y pasa por la fachada de la iglesia de Santa Felicita, y después rodea la torre de los Mannelli, la familia que no quiso cederla. Al final llega al jardín de Bóboli, junto a una gruta artificial llena de estalactitas, la gruta de Buontalenti, por donde los Médici entraban en su palacio.`}
+];
+EXTRA.piazzale = [
+{t:"Cuando Florencia fue capital",text:`Entre 1865 y 1871 Florencia fue la capital del nuevo Reino de Italia. Turín había sido la primera capital, y Roma todavía estaba en manos del papa. Florencia se convirtió de golpe en sede del rey, del parlamento y de los ministerios, y la ciudad tuvo que transformarse a toda prisa para recibir a miles de funcionarios, diplomáticos y militares.
+
+El arquitecto Giuseppe Poggi dirigió el plan. Se derribaron las murallas medievales del lado norte y se sustituyeron por grandes avenidas arboladas, los viali, al estilo de los bulevares de París. En este lado del río, Poggi diseñó la avenida de los Colli, una carretera panorámica que sube por las colinas en curvas y que termina en esta plaza. Las escaleras y rampas que suben desde el río, las Rampe, tienen fuentes, grutas y jardines, y se acaban de restaurar hace poco.
+
+Poco después, cuando la capital se trasladó a Roma, Florencia se quedó con las obras a medio pagar y muchas deudas. Pero el plan siguió en parte. A finales del siglo diecinueve se derribó el viejo centro medieval, con el mercado antiguo y el gueto judío, para construir la Plaza de la República, con su gran arco. En el arco hay una inscripción que presume de que el antiguo centro de la ciudad fue devuelto a una vida nueva después de siglos de miseria. A muchos florentinos y a muchos visitantes extranjeros de la época aquello les pareció un desastre, porque se perdieron torres, iglesias y calles medievales. Si pasas por esa plaza, que está entre el Duomo y la Señoría, recuerda que debajo hubo un barrio entero, y también el foro de la Florencia romana.
+
+Desde aquí arriba, fíjate en lo compacto que sigue siendo el centro: todo lo importante cabe en un paseo de media hora. Es la Florencia que vio el Renacimiento, casi sin rascacielos ni edificios modernos que rompan el horizonte.`},
+{t:"San Miniato por dentro",text:`Si has subido hasta San Miniato, aquí tienes una visita guiada del interior.
+
+Al entrar, el espacio está dividido en tres niveles. La nave principal, a tu altura. Al fondo, la cripta, un poco más baja, con un bosque de columnas antiguas, cada una distinta, reutilizadas de edificios romanos. Y encima de la cripta, el presbiterio elevado, donde está el altar, al que se sube por unas escaleras a los lados. Separando la nave del presbiterio hay una barrera de mármol blanco y verde con dibujos geométricos y un púlpito del siglo trece decorado con figuras.
+
+Mira el suelo de la nave: tiene paneles de mármol con signos del zodíaco y animales, de 1207. Y en el ábside, arriba, el mosaico dorado de Cristo entre la Virgen y San Miniato, que aparece vestido de rey, porque la tradición dice que era un príncipe armenio.
+
+A la izquierda de la nave hay una joya pequeña y poco conocida: la capilla del cardenal de Portugal. Jacobo de Portugal, un joven cardenal sobrino del rey portugués, murió en Florencia en 1459, con solo veinticinco años. Su familia encargó esta capilla a los mejores artistas del momento. La tumba es de Antonio Rossellino, el techo de cerámica vidriada azul y blanca es de Luca della Robbia, y hay pinturas de Alesso Baldovinetti y de los hermanos Pollaiuolo. Es una de las capillas más completas y armoniosas del Renacimiento.
+
+En la sacristía, a la derecha del presbiterio, hay frescos de Spinello Aretino de finales del siglo catorce con la vida de San Benito, de colores muy vivos.
+
+Y una historia de guerra. En 1529, Florencia, que había vuelto a echar a los Médici, fue sitiada por las tropas del emperador Carlos quinto y del papa, que era un Médici. Miguel Ángel, que estaba a cargo de las fortificaciones de la ciudad, hizo construir murallas en esta colina. El campanario de San Miniato servía de puesto de artillería, y para protegerlo de los cañonazos enemigos, Miguel Ángel lo hizo forrar con colchones de lana colgados de la torre. Los proyectiles rebotaban contra la lana. La ciudad resistió diez meses, pero al final cayó en 1530, y los Médici volvieron para quedarse.`}
+];
+
+EXTRA.accademia = [
+{t:"El mármol, las heridas y los cuidados del David",text:`El David está hecho de mármol de Carrara, de las canteras de los Alpes Apuanos, a unos cien kilómetros de aquí. Miguel Ángel conocía muy bien ese mármol: de joven pasaba temporadas en las canteras eligiendo él mismo los bloques, golpeándolos para escuchar si sonaban limpios, sin grietas por dentro. En el caso del David no pudo elegir: el bloque ya estaba sacado, era estrecho y tenía defectos. Por eso la figura es tan esbelta y por eso tiene esa postura; Miguel Ángel adaptó la escultura a la piedra que tenía.
+
+En sus más de quinientos años, el David ha sufrido mucho. Ya te conté que en 1527 un banco lanzado desde el Palazzo Vecchio le rompió el brazo izquierdo. Durante siglos estuvo al aire libre, con la lluvia y la contaminación, y se le aplicaron tratamientos de limpieza que hoy se considerarían agresivos. En 1991, un hombre con un martillo escondido le golpeó el pie izquierdo y le rompió parte de un dedo. Se restauró con los fragmentos originales. Por eso hoy está rodeado de una barrera y vigilado de cerca.
+
+El mayor problema actual son los tobillos. Toda la estatua, de varias toneladas, se apoya sobre las piernas, sobre todo la derecha, y en los tobillos y en el tronco que hay detrás de la pierna se han detectado microfisuras. Los técnicos las vigilan continuamente. Florencia está en una zona con terremotos ocasionales, y el paso diario de miles de visitantes produce pequeñas vibraciones. Por eso se ha estudiado incluso colocar la estatua sobre una base antisísmica.
+
+Para su quinientos aniversario, en 2004, se hizo una limpieza muy cuidadosa, con algodón y agua destilada, que devolvió al mármol su tono cálido. Fíjate en la superficie: no es blanca pura, tiene matices, vetas y pequeñas manchas que forman parte de la piedra.
+
+Una última curiosidad: la estatua tiene una pequeña asimetría en los ojos. Cada uno mira en una dirección ligeramente distinta. Se cree que Miguel Ángel lo hizo a propósito, para que desde cualquier ángulo de la plaza pareciera que el David te miraba a ti o miraba al enemigo.`},
+{t:"La sala de los yesos y el Rapto de las Sabinas",text:`El David no es lo único que merece la pena aquí. Antes o después de verlo, busca la Sala del Coloso, una sala grande con pinturas sobre fondo dorado en las paredes. En el centro hay una escultura enorme y blanca: tres cuerpos entrelazados en espiral, un hombre que levanta a una mujer en brazos mientras otro hombre, a sus pies, se encoge. Es el modelo original en yeso, a tamaño real, del Rapto de las Sabinas de Giambologna, el mismo grupo que viste en mármol en la Loggia dei Lanzi.
+
+Giambologna era un escultor flamenco que llegó a Florencia y se convirtió en el escultor favorito de los Médici. Con esta obra quiso demostrar que podía tallar varias figuras en un solo bloque de mármol, y diseñarlas para que no tuvieran una vista principal: hay que rodearla, y desde cada punto parece una escultura distinta. Dicen que la hizo sin pensar en el tema; el título se lo pusieron después. El modelo de yeso le servía para trabajar las formas antes de pasar al mármol.
+
+Después, busca la gipsoteca, la gran sala de yesos del siglo diecinueve, al fondo del museo. Está llena de bustos y estatuas de yeso blanco, la mayoría de Lorenzo Bartolini, un escultor de la época. Fíjate en que muchas tienen pequeños puntos negros por toda la superficie. Son marcas de medición: los ayudantes del taller medían la distancia entre esos puntos con un compás especial y las trasladaban al bloque de mármol, para reproducir la figura con exactitud. Es como ver el taller de un escultor por dentro.
+
+Y en otra zona del museo hay una colección de instrumentos musicales antiguos, procedentes de la corte de los Médici y de los grandes duques de Lorena. Florencia fue una ciudad muy importante para la música: aquí, a finales del siglo dieciséis, nació la ópera, y aquí trabajó Bartolomeo Cristofori, el hombre al que se atribuye la invención del piano, hacia el año 1700, cuando estaba al servicio del príncipe Fernando de Médici. En la colección hay instrumentos de grandes constructores, entre ellos una viola de Antonio Stradivari hecha para los Médici.`},
+{t:"Un David, tres copias y un símbolo",text:`Durante estos días habrás visto ya tres Davides. El original, aquí. La copia de mármol en la Plaza de la Señoría, colocada en 1910 en el sitio del original. Y la copia de bronce del Piazzale Michelangelo, de 1873. Hay copias en todo el mundo, y su imagen está en camisetas, imanes y delantales por toda la ciudad. ¿Por qué esta estatua se ha convertido en un símbolo tan grande?
+
+En parte, por la historia. El David se terminó en un momento muy concreto: en 1504 los Médici estaban expulsados y Florencia era una república, que se sentía amenazada por el papa, por los ejércitos franceses y por los propios Médici, que querían volver. David, el muchacho que derriba al gigante con astucia y valor, era la imagen perfecta de esa república pequeña y orgullosa. Cuando los florentinos lo veían delante del palacio del gobierno, entendían el mensaje: aquí defendemos la libertad.
+
+En parte, por el arte. Para los contemporáneos, el David demostró que un artista vivo podía igualar e incluso superar a los grandes escultores de la Antigüedad griega y romana, que se consideraban insuperables. Vasari escribió que Miguel Ángel había devuelto la vida a un bloque que estaba muerto, y que su David superaba a todas las estatuas antiguas y modernas. Eso, en una época que veneraba lo antiguo, era el mayor elogio posible.
+
+Y en parte, por algo que se siente al verlo en persona, y que ninguna foto transmite: la escala, la luz sobre el mármol, la sensación de que la figura está a punto de moverse. Antes de irte, ponte a cierta distancia, en el pasillo de los Prisioneros, y mira el David de lejos, con las figuras inacabadas a los lados. Es la vida de Miguel Ángel en una sola mirada: la piedra en bruto, la lucha por sacar la forma, y al final la perfección.`}
+];
+EXTRA.campanile = [
+{t:"Las campanas y la vida de la ciudad",text:`Durante siglos, la vida de Florencia se ordenaba por las campanas. No había relojes en las casas, y eran las campanas de las iglesias las que marcaban el comienzo y el fin del trabajo, las horas de oración, la apertura de las puertas de la ciudad o los peligros.
+
+En este campanario hay varias campanas, cada una con su nombre y su función. La más grande es la Campanona, dedicada a Santa Reparata, la antigua patrona de la ciudad. Se ha refundido varias veces a lo largo de los siglos, y hoy suena en las grandes fiestas.
+
+Las campanas de la ciudad también tenían un papel político. La del Palazzo Vecchio llamaba a los ciudadanos a reunirse en la plaza cuando había una amenaza o una decisión importante, y en las revueltas, quien controlaba las campanas controlaba a la gente. Por eso, cuando los Médici volvieron al poder en 1530, se cuenta que hicieron retirar y destruir la campana del palacio, para que el pueblo no pudiera volver a convocarse contra ellos.
+
+Mientras subes, en las terrazas intermedias, fíjate en la ciudad que va apareciendo: primero los tejados cercanos, luego las calles que salen de la plaza como radios, y finalmente las colinas. Desde la penúltima terraza ya se ve la cúpula a la altura de los ojos.`},
+{t:"Si te sobra media hora: el Museo de la Ópera del Duomo",text:`Tu pase incluye el Museo de la Ópera del Duomo, que está justo detrás de la catedral, y es uno de los grandes museos de escultura del mundo, aunque mucha gente se lo salta. Si tienes media hora, aquí van las tres cosas que no te debes perder.
+
+La primera es la gran sala del Paraíso. Es un espacio enorme donde se ha reconstruido, a tamaño real, la fachada medieval de la catedral, la que se desmontó en el siglo dieciséis, con las estatuas originales que la decoraban colocadas en su sitio. Enfrente están las tres puertas originales del baptisterio, incluida la Puerta del Paraíso de Ghiberti, restaurada tras décadas de trabajo, con todo su dorado. Aquí la puedes ver de cerca y sin cristales de por medio.
+
+La segunda es la Magdalena penitente de Donatello, una escultura de madera de mediados del siglo quince. No es la Magdalena joven y bella de otros artistas: es una mujer anciana, demacrada, con el pelo largo cubriéndole el cuerpo como un vestido, después de años de penitencia en el desierto. Es una de las obras más impresionantes y más tristes del Renacimiento.
+
+La tercera es la Piedad Bandini de Miguel Ángel. La esculpió ya anciano, con más de setenta años, pensando en su propia tumba. Muestra a Cristo muerto sostenido por la Virgen, María Magdalena y, detrás, un hombre con capucha, Nicodemo, que tiene el rostro de Miguel Ángel. Es un autorretrato. Un día, frustrado por un defecto en el mármol, o según otros por la insistencia de un criado, Miguel Ángel la golpeó con el martillo y rompió varias partes, entre ellas un brazo y una pierna de Cristo. Un ayudante recogió los trozos y la recompuso, y por eso a Cristo le falta la pierna izquierda.
+
+Y si te queda tiempo, busca también los paneles originales del campanario y las cantorías de Donatello y de Luca della Robbia, dos balcones para los cantores con niños que cantan, tocan y bailan.`}
+];
+EXTRA.mercato = [
+{t:"La cocina toscana, explicada",text:`La cocina toscana se suele llamar cucina povera, cocina pobre. No porque sea mala, sino porque nació en las casas de los campesinos, que aprovechaban todo y no tiraban nada. Pocas cosas, de muy buena calidad, y mucho aceite de oliva.
+
+El ejemplo perfecto es el pan toscano, que no lleva sal. Hay varias explicaciones: una dice que en la Edad Media Pisa, enemiga de Florencia, bloqueó el comercio de la sal y los florentinos aprendieron a hacer el pan sin ella; otra, más prosaica, que la sal estaba muy gravada con impuestos. Sea como sea, el pan es soso a propósito, porque acompaña a embutidos y platos muy sabrosos. Y como se pone duro enseguida, la cocina toscana está llena de recetas con pan duro: la ribollita, una sopa espesa de alubias, col negra y verduras que se recuece al día siguiente, de ahí su nombre, que significa rehervida; la pappa al pomodoro, una crema de pan con tomate y albahaca; y en verano la panzanella, una ensalada de pan mojado.
+
+Las legumbres son fundamentales, sobre todo las alubias blancas, cocinadas despacio con salvia y aceite. Y las carnes a la brasa: la bistecca, el pollo, las salchichas. Entre los embutidos, además de la finocchiona, busca el lardo di Colonnata, un tocino curado en vasijas de mármol en las canteras de Carrara, que se toma en lonchas finísimas sobre pan caliente.
+
+Los callos son una tradición muy florentina. Además del lampredotto, está la trippa alla fiorentina, callos guisados con tomate y parmesano. Antiguamente las partes menos nobles de la vaca, el quinto cuarto, eran la comida del pueblo.
+
+Para beber, el vino de la zona es el Chianti, que se produce en las colinas entre Florencia y Siena. El Chianti Classico lleva en la etiqueta un gallo negro, símbolo de una antigua liga militar de la región. Y para terminar, el vin santo con cantucci, o un café, que en Italia nunca se toma con leche después de comer: el capuchino es solo para el desayuno.`},
+{t:"El barrio de los Médici: San Lorenzo y su palacio",text:`Este barrio era el de los Médici. Aquí vivían, aquí rezaban y aquí están enterrados.
+
+La basílica de San Lorenzo fue durante mucho tiempo la iglesia parroquial de la familia. Su interior es obra de Brunelleschi, que la empezó hacia 1420, con el mismo estilo de columnas grises y paredes blancas que verás esta noche en Santo Spirito. La pagó en buena parte Giovanni di Bicci, el fundador de la fortuna familiar, y luego su hijo Cosme el Viejo. Dentro hay dos púlpitos de bronce de Donatello, de sus últimos años, y una sacristía, la Sacristía Vieja, también de Brunelleschi, con decoración de Donatello. Cosme el Viejo está enterrado bajo el suelo, delante del altar mayor, con una sencilla inscripción que lo llama padre de la patria.
+
+Junto a la iglesia, subiendo por una entrada lateral, está la Biblioteca Laurenciana, diseñada por Miguel Ángel para guardar la colección de manuscritos de los Médici. Su vestíbulo tiene una escalera extraordinaria, que parece derramarse como lava hacia abajo, y que muchos arquitectos consideran una de las primeras obras del manierismo.
+
+A dos calles de aquí, en Via Cavour, está el Palazzo Medici Riccardi, la casa que Cosme el Viejo mandó construir a Michelozzo hacia 1445. Se cuenta que Brunelleschi le presentó un proyecto mucho más grandioso, y que Cosme lo rechazó porque llamaría demasiado la atención: quería poder, pero sin parecer un rey. El palacio tiene la planta baja con piedra muy rústica, como una fortaleza, y se va haciendo más fino en los pisos superiores. Fue el modelo de los palacios del Renacimiento.
+
+Dentro, si tienes tiempo y está abierto, entra a ver la Capilla de los Magos, pintada por Benozzo Gozzoli hacia 1459. Es una pequeña capilla con las paredes cubiertas por un cortejo fantástico de los Reyes Magos atravesando paisajes toscanos, con caballos, halcones y cacerías. En el cortejo aparecen retratados miembros de la familia Médici y personajes de su tiempo. Es una de las capillas más bonitas de Florencia. Ten en cuenta que el acceso es por turnos y que el palacio cierra los miércoles.`}
+];
+EXTRA.capillas = [
+{t:"Los Médici en cinco nombres",text:`Para orientarte entre tantas tumbas, te presento a los cinco Médici que de verdad importan.
+
+El primero es Giovanni di Bicci, que a finales del siglo catorce convirtió un banco familiar modesto en uno de los más importantes de Europa, sobre todo gracias a un cliente: el papado. Los Médici gestionaban el dinero del papa, y eso les dio una fortuna enorme y contactos en toda la cristiandad.
+
+El segundo es su hijo, Cosme el Viejo, el que estuvo encerrado en la torre del Palazzo Vecchio y volvió del destierro para gobernar sin cargos. Era discreto, prudente y un gran mecenas: pagó a Brunelleschi, a Donatello, a Fra Angelico, construyó conventos y bibliotecas, y protegió a los sabios que traducían a Platón. Cuando murió, la ciudad le dio el título de Padre de la Patria.
+
+El tercero es su nieto, Lorenzo el Magnífico, que sobrevivió a la conjura de los Pazzi. Poeta, diplomático y político hábil, mantuvo el equilibrio entre los estados italianos y convirtió su casa en un centro de artistas y filósofos. En su jardín, cerca de San Marcos, se formó un adolescente llamado Miguel Ángel, al que Lorenzo acogió en su casa como a un hijo. Curiosamente, el Magnífico fue mucho mejor mecenas y político que banquero: con él, el banco empezó a decaer.
+
+El cuarto es Cosme primero, de una rama secundaria de la familia, que llegó al poder con diecisiete años en 1537 y gobernó durante décadas con mano de hierro. Acabó definitivamente con la república, conquistó Siena y fue nombrado gran duque de Toscana. Él encargó los Uffizi, el corredor y la decoración del Palazzo Vecchio. Los grandes duques que vinieron después son los enterrados en la Capilla de los Príncipes.
+
+Y la quinta es Ana María Luisa, la última de la familia, que murió en 1743. Sin herederos, la Toscana pasó a los Lorena, de Austria. Pero ella, en el acuerdo de 1737, consiguió que las colecciones de arte de los Médici no salieran nunca de Florencia. Su tumba está aquí, en la cripta, y es una de las figuras más queridas de la ciudad: sin ella, los Uffizi estarían repartidos por media Europa.`},
+{t:"La habitación secreta de Miguel Ángel",text:`Bajo la Sacristía Nueva hay un pequeño cuarto, un antiguo almacén, al que durante siglos nadie prestó atención. En 1975, durante unos trabajos, los restauradores quitaron una capa de yeso de sus paredes y encontraron algo sorprendente: decenas de dibujos a carboncillo y sanguina. Figuras humanas, piernas, brazos, una cabeza, un caballo, estudios de cuerpos en movimiento.
+
+Los expertos los atribuyeron a Miguel Ángel, y la hipótesis más aceptada es emocionante. En 1530, cuando cayó la república y volvieron los Médici, Miguel Ángel estaba en peligro: había dirigido las fortificaciones de la ciudad contra ellos. Se escondió durante un tiempo, y se cree que uno de sus escondites fue este cuarto, debajo de la capilla en la que él mismo trabajaba para los Médici. Durante esas semanas, encerrado y sin saber qué sería de él, habría llenado las paredes de dibujos, quizá recordando sus obras o pensando en otras nuevas. Al final, el papa Clemente séptimo, que era un Médici y lo necesitaba para terminar la sacristía, lo perdonó.
+
+No todos los historiadores están de acuerdo en que todos los dibujos sean suyos, pero muchos los consideran auténticos. El cuarto es muy pequeño y frágil, y durante años estuvo cerrado al público. En los últimos tiempos se ha abierto para pequeños grupos con reserva y por turnos muy limitados, así que pregunta en la taquilla si es posible verlo; si no, al menos sabrás que está ahí, bajo tus pies, mientras miras las estatuas de la Noche y el Día.`}
+];
+EXTRA.santacroce = [
+{t:"La Capilla Pazzi y el claustro",text:`Tu entrada a Santa Croce incluye el claustro y la Capilla Pazzi, y no te la debes perder: es una de las obras maestras de Brunelleschi y una de las joyas más perfectas del Renacimiento.
+
+Sal de la iglesia hacia el claustro, por la derecha. Al fondo del primer claustro verás un pórtico con columnas y, detrás, una pequeña sala. La encargó la familia Pazzi, sí, la misma de la conjura contra los Médici, como sala capitular para los frailes y capilla funeraria para la familia. Se empezó hacia 1430 y su diseño se atribuye a Brunelleschi, aunque se terminó después de su muerte.
+
+Entra y mira a tu alrededor. Es un espacio pequeño, rectangular, con una cúpula en el centro. Todo está hecho con dos materiales: el blanco del yeso de las paredes y el gris de la piedra serena, que dibuja pilastras, arcos y cornisas como si fueran líneas trazadas con regla. Las proporciones están calculadas con precisión matemática, y el resultado es una sensación de calma y de orden absoluto. Es la idea del Renacimiento: el ser humano, a través de la razón y la geometría, puede crear espacios que reflejan la armonía del universo.
+
+El único color lo ponen los medallones de cerámica vidriada azul y blanca, de los talleres de Luca della Robbia, con los doce apóstoles y los cuatro evangelistas.
+
+Al otro lado está el segundo claustro, también atribuido a Brunelleschi, y el antiguo refectorio de los frailes, hoy museo, donde está el crucifijo de Cimabue y una gran Última Cena pintada por Taddeo Gaddi. En el museo, fíjate también en las marcas en las paredes que indican la altura del agua en la inundación de 1966. Te darás cuenta de lo que tuvo que ser ver este lugar cubierto de barro.
+
+Y si te interesa el cuero, detrás de la iglesia, entrando por el jardín, está la Scuola del Cuoio, una escuela de marroquinería fundada después de la Segunda Guerra Mundial por los frailes franciscanos y una familia de artesanos, para enseñar un oficio a los huérfanos de la guerra. Todavía hoy se puede ver trabajar a los artesanos.`},
+{t:"Donatello, Brunelleschi y el crucifijo del campesino",text:`Vuelve a la iglesia y busca dos obras de Donatello que casi todo el mundo pasa de largo.
+
+En la nave derecha, después de la tumba de Maquiavelo, está la Anunciación Cavalcanti, un relieve de piedra serena con toques dorados, de hacia 1435. El ángel acaba de llegar y se arrodilla; la Virgen, sorprendida, se aparta con un gesto de pudor, pero a la vez se gira hacia él. Es un instante de emoción contenida, y uno de los relieves más delicados del Renacimiento.
+
+La otra está en una capilla del transepto izquierdo: un crucifijo de madera de Donatello. Y aquí viene una de las mejores anécdotas que cuenta Vasari.
+
+Donatello y Brunelleschi eran grandes amigos. Cuando Donatello terminó este crucifijo, se lo enseñó orgulloso a Brunelleschi, esperando sus elogios. Brunelleschi, con su sinceridad habitual, le dijo que había puesto en la cruz a un campesino, no a Cristo. Donatello, ofendido, le respondió que si hacerlo fuera tan fácil como criticarlo, que lo intentara él.
+
+Brunelleschi se puso a trabajar en secreto durante meses. Cuando terminó su propio crucifijo, invitó a Donatello a comer y le pidió que fuera a casa con la compra, unos huevos y otros alimentos en el delantal. Donatello entró, vio el crucifijo de Brunelleschi y se quedó tan impresionado que soltó el delantal, y los huevos se rompieron en el suelo. Entonces dijo que a Brunelleschi le había sido concedido hacer cristos, y a él, campesinos.
+
+El crucifijo de Brunelleschi está en la iglesia de Santa María Novella, junto a la estación. Si pasas por allí, podrás comparar: el de Donatello, más humano, más tosco, más real, y el de Brunelleschi, más idealizado y armonioso. Lo bonito es que hoy muchos prefieren el campesino de Donatello.
+
+Y antes de irte, mira la tumba del poeta Vittorio Alfieri, en la nave derecha, hecha por Antonio Canova, el gran escultor neoclásico: una figura de mujer que representa a Italia llorando a su poeta.`},
+{t:"La noche de la inundación",text:`Ya te he hablado varias veces de la inundación de 1966. Aquí, en Santa Croce, es donde más sentido tiene contarla bien, porque este barrio, el más bajo de la ciudad, fue el que más sufrió.
+
+Llovió sin parar durante días a principios de noviembre de 1966. En la madrugada del cuatro de noviembre, festivo en Italia, el Arno desbordó sus orillas. Muchos florentinos dormían. El agua entró en la ciudad con una fuerza enorme, arrastrando barro, troncos, coches y gasóleo de los depósitos de calefacción. En la zona de Santa Croce llegó a varios metros de altura. Las tiendas del Ponte Vecchio fueron arrasadas. En la Biblioteca Nacional, que está aquí al lado, quedaron bajo el barro millones de libros y documentos. Murieron decenas de personas en la ciudad y en los alrededores.
+
+Cuando bajó el agua, la ciudad estaba cubierta de un lodo negro y pegajoso. Y entonces ocurrió algo extraordinario. De toda Italia y de todo el mundo llegaron miles de jóvenes voluntarios, estudiantes sobre todo, que sin que nadie los organizara se pusieron a sacar libros, cuadros y esculturas del barro, a limpiarlos, a secarlos página a página. Los florentinos los llamaron gli angeli del fango, los ángeles del barro.
+
+El crucifijo de Cimabue, en el museo de esta iglesia, se convirtió en el símbolo de la tragedia. La pintura, sobre madera, estuvo horas sumergida, y cuando se sacó había perdido gran parte de su superficie. Su restauración duró años y fue un laboratorio para nuevas técnicas. Hoy se ha colgado en un sistema que permite elevarlo en caso de una nueva inundación.
+
+Lo que se aprendió restaurando todo aquello convirtió a Florencia en una de las capitales mundiales de la restauración de obras de arte. Desde entonces se han hecho obras para controlar el río, pero el riesgo no ha desaparecido del todo, y la ciudad sigue vigilando el Arno con atención cada otoño.`}
+];
+EXTRA.uffizi = [
+{t:"Más joyas que no te puedes perder",text:`Además de las obras que ya te he contado, si tienes tiempo busca estas, que tienen historias estupendas.
+
+El díptico de los duques de Urbino, de Piero della Francesca. Son dos retratos de perfil, uno frente al otro: Federico de Montefeltro y su esposa Battista Sforza, con un paisaje infinito detrás. Federico siempre se hacía retratar por el lado izquierdo, porque había perdido el ojo derecho en un torneo. Fíjate también en su nariz con una muesca: se dice que se hizo cortar parte del puente de la nariz para poder ver mejor con el ojo que le quedaba. El retrato de su mujer es muy pálido porque se pintó después de su muerte, joven, tras dar a luz.
+
+La batalla de San Romano, de Paolo Uccello. Una batalla de caballeros con armaduras y lanzas, pintada por un artista obsesionado con la perspectiva. Fíjate en las lanzas rotas en el suelo, colocadas en líneas que van hacia el fondo, y en los caballos que parecen de juguete. Es uno de tres paneles; los otros dos están en Londres y en París.
+
+La Virgen con el Niño y dos ángeles, de Filippo Lippi. Lippi era un fraile carmelita con una vida nada ejemplar. Se enamoró de una joven monja, Lucrezia Buti, que posaba para él, se fugó con ella y tuvieron un hijo, Filippino, que también fue pintor. Se cree que Lucrezia es el modelo de esta Virgen tan humana, y que el ángel que sonríe pícaro hacia ti podría estar inspirado en un niño de su entorno. Botticelli fue alumno de Lippi.
+
+La Judit decapitando a Holofernes, de Artemisia Gentileschi. Una de las pocas mujeres pintoras reconocidas de su tiempo, en el siglo diecisiete. La escena es brutal: dos mujeres sujetan al general y le cortan la cabeza, con la sangre saltando sobre las sábanas. Muchos han leído en este cuadro la respuesta de Artemisia a la violencia que ella misma sufrió de joven, por la que tuvo que pasar por un juicio terrible.
+
+Y antes de salir, busca alguno de los autorretratos. Los Uffizi tienen la colección de autorretratos de artistas más grande del mundo, iniciada por un cardenal Médici en el siglo diecisiete, con obras de Rembrandt, Rubens, Velázquez y muchos otros. Hoy se exponen algunos en las salas del museo.`},
+{t:"Leer un cuadro del Renacimiento",text:`Para disfrutar más de lo que ves, aquí tienes unas pocas claves que te sirven para cualquier cuadro de este museo.
+
+Primero, el oro. En las salas del principio, los fondos son dorados. El oro no representaba un cielo real, sino el espacio divino, fuera del tiempo. Además, era carísimo, y el cliente pagaba por él. A medida que avanzas por las salas, el oro desaparece y aparecen cielos azules, paisajes y arquitecturas. Es el cambio del Renacimiento: Dios y los santos entran en el mundo real de los hombres.
+
+Segundo, la perspectiva. Hacia 1420, Brunelleschi demostró con un experimento famoso, frente al baptisterio, cómo representar el espacio de forma matemática, con líneas que se juntan en un punto de fuga. Los pintores lo adoptaron enseguida. Cuando veas un suelo con baldosas o un edificio en un cuadro, sigue las líneas con la mirada: suelen llevarte a un punto central, a menudo la cabeza de Cristo o de la Virgen.
+
+Tercero, los colores tenían precio. El azul ultramar, el del manto de la Virgen, se hacía con lapislázuli molido, que venía de Afganistán y valía más que el oro. En los contratos se especificaba cuánto ultramar debía usar el pintor. Por eso la Virgen suele llevar manto azul: era el color más precioso para la figura más importante.
+
+Cuarto, los clientes. Casi todos estos cuadros se hicieron por encargo, para una capilla, un altar o una casa. A menudo, el que pagaba aparece dentro del cuadro, arrodillado a un lado, o los artistas retrataban a personas conocidas entre los personajes. En la Adoración de los Magos de Botticelli, por ejemplo, aparecen varios Médici como reyes y acompañantes, y el propio Botticelli se retrató a la derecha, mirando hacia fuera, hacia ti.
+
+Y quinto, la mitología. Con el Renacimiento vuelven los dioses antiguos, Venus, Marte, Mercurio, pero no como religión, sino como una forma de hablar del amor, la belleza o la virtud. Los Médici y su círculo de filósofos creían que la sabiduría de Platón y el cristianismo podían convivir, y cuadros como la Primavera o el Nacimiento de Venus se pintaron para ese ambiente culto, para ser descifrados como un enigma.`}
+];
+EXTRA.santospirito = [
+{t:"La Capilla Brancacci y el Carmine",text:`A pocos minutos de la plaza de Santo Spirito, en la iglesia de Santa María del Carmine, hay una pequeña capilla que es uno de los lugares clave de toda la historia del arte: la Capilla Brancacci. Si la encuentras abierta, ya sea esta tarde o en otro viaje, no te la pierdas; suele hacer falta reservar y las visitas son por turnos cortos.
+
+En la década de 1420, un rico comerciante de seda, Felice Brancacci, encargó decorar la capilla de su familia con escenas de la vida de San Pedro. Empezó un pintor ya consagrado, Masolino, y con él trabajó un joven de poco más de veinte años: Tommaso di ser Giovanni, al que llamaban Masaccio, que significa algo así como Tomasón, por lo descuidado que era.
+
+Masaccio murió con veintisiete años, pero en estos frescos cambió la pintura para siempre. Busca la Expulsión de Adán y Eva del Paraíso, en la pared de la izquierda, arriba. Eva grita de dolor con la boca abierta; Adán se tapa la cara con las manos, avergonzado. No hay nada decorativo: son dos cuerpos reales, desnudos, que proyectan sombra en el suelo, y sientes su desesperación. Durante una restauración en los años ochenta se quitaron las hojas de parra que se les habían añadido siglos después, y volvieron a verse como Masaccio los pintó.
+
+Al lado, el Tributo, una escena en la que Cristo ordena a Pedro que saque una moneda de la boca de un pez para pagar un impuesto. Los apóstoles parecen estatuas romanas, con un paisaje real de montañas detrás, y la luz entra desde un único lado, la ventana real de la capilla.
+
+Durante décadas, los jóvenes artistas venían a esta capilla a copiar estos frescos para aprender. Uno de ellos fue Miguel Ángel. Y aquí, según cuenta la tradición, un compañero envidioso, Pietro Torrigiano, le dio un puñetazo durante una discusión y le rompió la nariz. Por eso Miguel Ángel tuvo la nariz rota toda su vida, como se ve en sus retratos.`},
+{t:"El Palacio Pitti y una despedida",text:`Si al cruzar el puente te queda luz, o para tu próxima visita a Florencia, a unos minutos de aquí está el Palacio Pitti, la gran residencia de los Médici.
+
+Su historia es curiosa. Lo empezó hacia 1458 un banquero rival de los Médici, Luca Pitti, que quería un palacio más grande que el de ellos, con ventanas tan anchas como las puertas del palacio Médici. Se arruinó antes de terminarlo. Un siglo después, en 1550, la esposa de Cosme primero, Leonor de Toledo, hija del virrey español de Nápoles, compró el palacio y los Médici se trasladaron aquí desde el Palazzo Vecchio. Y para ir a trabajar sin salir a la calle, Cosme mandó construir el Corredor Vasariano, que termina aquí.
+
+Detrás del palacio están los Jardines de Bóboli, un gran parque en la ladera con terrazas, estatuas, fuentes, grutas y una avenida de cipreses. Fue uno de los modelos de los jardines de las cortes europeas. En noviembre cierran a media tarde, hacia las cuatro y media, así que son para la mañana.
+
+Dentro del palacio hay varios museos: la Galería Palatina, llena de cuadros de Rafael y Tiziano colgados como en tiempos de los grandes duques, unos sobre otros, los apartamentos reales, y una galería de arte moderno. Más tarde, cuando Florencia fue capital, aquí vivió el rey de Italia.
+
+Y ahora sí, la despedida. Has visto en dos días la cúpula que nadie sabía construir, las puertas del Paraíso, el David, a Botticelli y a Miguel Ángel enterrado entre los grandes. Florencia tenía unos cuarenta o cincuenta mil habitantes cuando ocurrió casi todo esto, menos que muchas ciudades medianas de hoy, y aun así cambió la manera de ver el mundo de toda Europa. Hay un dicho que dice que Florencia no se visita, se vuelve. Seguro que vuelves.`}
+];
+
+
+/* ---------- Ilustraciones ---------- */
+const SKIES = {
+  dia:["#8ec5e8","#f6dfc0"], tarde:["#f2a65e","#f9d9a6"], ocaso:["#3b2d63","#e9736b","#f8c27c"], noche:["#14142b","#33335c"]
+};
+const SIL = "#2a2340", SIL2 = "#4a3f6b", MARBLE="#f3eee6", GREEN="#4d7a66", PINK="#d79a9a", TERRA="#c9673f";
+function sky(id, kind){
+  const c = SKIES[kind];
+  const stops = c.map((col,i)=>`<stop offset="${i/(c.length-1)}" stop-color="${col}"/>`).join("");
+  return `<defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1">${stops}</linearGradient>
+  <linearGradient id="fade${id}" x1="0" y1="0" x2="0" y2="1"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></linearGradient></defs>
+  <rect width="400" height="170" fill="url(#g${id})"/>`;
+}
+const hills = (col,y=120)=>`<path d="M0 ${y} Q60 ${y-28} 120 ${y-8} T250 ${y-14} T400 ${y-6} V170 H0Z" fill="${col}"/>`;
+const sun = (x,y,r=16,col="#ffe2a8")=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${col}" opacity=".9"/>`;
+const stars = ()=>Array.from({length:22},(_,i)=>`<circle cx="${(i*73)%400}" cy="${(i*37)%70+6}" r="${i%3?0.8:1.3}" fill="#fff" opacity=".8"/>`).join("");
+function domeShape(cx,base,w,h,fill){
+  return `<path d="M${cx-w/2} ${base} Q${cx-w/2} ${base-h*0.95} ${cx} ${base-h} Q${cx+w/2} ${base-h*0.95} ${cx+w/2} ${base} Z" fill="${fill}"/>
+  <path d="M${cx-w/4} ${base} Q${cx-w/5} ${base-h*0.8} ${cx} ${base-h} M${cx+w/4} ${base} Q${cx+w/5} ${base-h*0.8} ${cx} ${base-h}" stroke="${MARBLE}" stroke-width="2" fill="none" opacity=".8"/>
+  <rect x="${cx-4}" y="${base-h-14}" width="8" height="14" fill="${MARBLE}"/><path d="M${cx-5} ${base-h-14} L${cx} ${base-h-24} L${cx+5} ${base-h-14}Z" fill="${MARBLE}"/>`;
+}
+function campanile(x,base,w,h,col=MARBLE){
+  let s=`<rect x="${x}" y="${base-h}" width="${w}" height="${h}" fill="${col}"/>`;
+  for(let i=1;i<5;i++) s+=`<rect x="${x}" y="${base-h*i/5}" width="${w}" height="2" fill="${GREEN}"/>`;
+  s+=`<rect x="${x+w*0.3}" y="${base-h*0.92}" width="${w*0.4}" height="${h*0.12}" rx="${w*0.2}" fill="${SIL}" opacity=".6"/>`;
+  return s;
+}
+function tower(x,base,w,h,col){
+  let s=`<rect x="${x}" y="${base-h}" width="${w}" height="${h}" fill="${col}"/>`;
+  for(let i=0;i<4;i++) s+=`<rect x="${x-3+i*(w+6)/4}" y="${base-h-6}" width="${(w+6)/8}" height="6" fill="${col}"/>`;
+  return s;
+}
+function palace(x,base,w,h,col){
+  let s=`<rect x="${x}" y="${base-h}" width="${w}" height="${h}" fill="${col}"/>`;
+  for(let i=0;i<Math.floor(w/12);i++) s+=`<rect x="${x+2+i*12}" y="${base-h-6}" width="6" height="6" fill="${col}"/>`;
+  return s;
+}
+function windows(x,y,n,gap,w=6,h=10,col="#ffd78a"){ let s=""; for(let i=0;i<n;i++) s+=`<rect x="${x+i*gap}" y="${y}" width="${w}" height="${h}" rx="3" fill="${col}" opacity=".85"/>`; return s; }
+function arches(x,y,n,gap,r,col){ let s=""; for(let i=0;i<n;i++){const cx=x+i*gap; s+=`<path d="M${cx-r} ${y} V${y-r} A${r} ${r} 0 0 1 ${cx+r} ${y-r} V${y}Z" fill="${col}"/>`;} return s; }
+function water(y,col="#3e4f7a"){ let s=`<rect x="0" y="${y}" width="400" height="${170-y}" fill="${col}"/>`; for(let i=0;i<9;i++) s+=`<rect x="${(i*53)%380}" y="${y+6+(i*11)%(170-y-8)}" width="${18+(i*7)%20}" height="1.6" fill="#ffd9a8" opacity=".45"/>`; return s; }
+
+const ART = {
+  duomo:(id)=> sky(id,"tarde")+hills("#c9a98a",140)+
+    `<rect x="70" y="95" width="200" height="75" fill="${MARBLE}"/>`+
+    `<path d="M70 95 L170 70 L270 95Z" fill="${MARBLE}"/>`+
+    `<circle cx="170" cy="100" r="11" fill="${PINK}"/><circle cx="170" cy="100" r="6" fill="${GREEN}"/>`+
+    arches(110,170,3,60,14,GREEN)+windows(84,112,2,160,8,22,PINK)+
+    domeShape(220,92,96,60,TERRA)+campanile(300,170,26,120)+
+    `<path d="M20 170 V128 L45 116 L70 128 V170Z" fill="${MARBLE}"/><path d="M28 170 V140 H62 V170" fill="${GREEN}" opacity=".5"/>`,
+  cupula:(id)=> sky(id,"dia")+
+    `<path d="M0 150 L400 150 V170 H0Z" fill="#b8574a"/>`+
+    Array.from({length:14},(_,i)=>`<rect x="${i*30}" y="${138-((i*17)%14)}" width="26" height="40" fill="#c96a4c"/><path d="M${i*30-2} ${138-((i*17)%14)} L${i*30+13} ${130-((i*17)%14)} L${i*30+28} ${138-((i*17)%14)}Z" fill="#a8483a"/>`).join("")+
+    `<rect x="140" y="105" width="120" height="30" fill="${MARBLE}"/>`+windows(150,112,6,18,8,12,GREEN)+
+    domeShape(200,107,140,82,TERRA)+sun(330,40,14,"#fff4d8"),
+  orsanmichele:(id)=> sky(id,"tarde")+
+    `<rect x="110" y="30" width="180" height="140" fill="#cdb79b"/>`+
+    arches(140,165,4,40,13,"#7a6650")+
+    `<g fill="${MARBLE}">`+[140,180,220,260].map(x=>`<circle cx="${x}" cy="130" r="4"/><rect x="${x-4}" y="134" width="8" height="26" rx="3"/>`).join("")+`</g>`+
+    windows(130,55,4,40,14,24,"#7a6650")+
+    `<rect x="0" y="120" width="105" height="50" fill="${SIL2}"/><rect x="295" y="110" width="105" height="60" fill="${SIL2}"/>`,
+  signoria:(id)=> sky(id,"ocaso")+
+    palace(150,170,130,90,"#b88d63")+tower(198,85,30,70,"#b88d63")+
+    `<rect x="205" y="35" width="16" height="16" fill="${MARBLE}"/><circle cx="213" cy="43" r="5" fill="${SIL}"/>`+
+    windows(160,100,5,24,8,14,"#ffd78a")+windows(160,130,5,24,8,14,"#ffd78a")+
+    `<rect x="20" y="105" width="110" height="65" fill="${SIL}"/>`+arches(42,170,3,34,13,"#4a3f6b")+
+    `<rect x="300" y="128" width="12" height="42" fill="${MARBLE}"/><circle cx="306" cy="122" r="6" fill="${MARBLE}"/><path d="M300 150 l-8 20 h8 Z" fill="${MARBLE}"/>`+
+    `<rect x="292" y="160" width="28" height="10" fill="#8c8a9a"/>`,
+  ponte:(id)=> sky(id,"ocaso")+sun(310,95,22,"#ffcf8a")+hills(SIL2,110)+water(128)+
+    `<rect x="40" y="96" width="320" height="22" fill="#d9a35c"/>`+
+    Array.from({length:12},(_,i)=>`<rect x="${44+i*26}" y="${84+(i%3)*3}" width="22" height="${14-(i%3)*3}" fill="${["#e0b46f","#cf8f4e","#e8c58a"][i%3]}"/>`).join("")+
+    `<rect x="40" y="78" width="320" height="8" fill="#c48a4e"/>`+windows(56,80,12,26,6,4,"#2a2340")+
+    `<rect x="40" y="118" width="320" height="10" fill="#b8844b"/>`+
+    [80,200,320].map(x=>`<path d="M${x-45} 128 Q${x} 98 ${x+45} 128Z" fill="#3e4f7a"/>`).join(""),
+  piazzale:(id)=> sky(id,"ocaso")+sun(80,96,26,"#ffd28f")+hills("#5b4a7a",112)+
+    `<g fill="${SIL}">`+palace(30,140,60,18,SIL)+domeShape(150,128,58,38,SIL)+campanile(186,140,10,52,SIL)+tower(240,140,12,50,SIL)+palace(260,140,80,16,SIL)+`<rect x="0" y="138" width="400" height="10"/></g>`+
+    `<rect x="0" y="148" width="400" height="22" fill="#2a2a44"/>`+
+    `<rect x="330" y="120" width="8" height="28" fill="#b9a36a"/><circle cx="334" cy="115" r="5" fill="#b9a36a"/>`,
+  accademia:(id)=> sky(id,"dia")+
+    `<rect x="0" y="0" width="400" height="170" fill="#e9e2d6"/>`+
+    `<path d="M120 0 Q200 60 280 0Z" fill="#d6ccbb"/><rect x="0" y="150" width="400" height="20" fill="#cfc4b2"/>`+
+    `<rect x="170" y="128" width="60" height="22" fill="#bfb3a0"/>`+
+    `<g fill="#fbf8f2" stroke="#d9cfbf" stroke-width="1">
+      <ellipse cx="200" cy="38" rx="9" ry="11"/>
+      <path d="M190 50 Q200 46 211 50 L214 82 Q212 92 208 96 L210 128 H203 L200 100 L197 128 H189 L192 96 Q187 90 187 82 Z"/>
+      <path d="M211 52 Q222 62 218 82 L214 82" /><path d="M190 52 Q182 56 186 40 L190 38"/></g>`+
+    `<rect x="40" y="70" width="34" height="80" fill="#d6ccbb"/><rect x="326" y="74" width="34" height="76" fill="#d6ccbb"/>`,
+  campanile:(id)=> sky(id,"dia")+sun(330,38,13,"#fff6dc")+hills("#c9a98a",150)+
+    campanile(180,170,42,150)+domeShape(90,150,90,52,TERRA)+`<rect x="40" y="150" width="100" height="20" fill="${MARBLE}"/>`,
+  mercato:(id)=> sky(id,"tarde")+
+    `<rect x="40" y="70" width="320" height="100" fill="#8f9a8a"/>`+
+    `<path d="M40 70 Q200 20 360 70Z" fill="#c9d7d1" opacity=".9"/>`+
+    Array.from({length:9},(_,i)=>`<line x1="${60+i*35}" y1="70" x2="${60+i*35}" y2="${42+Math.abs(4-i)*5}" stroke="#56635c" stroke-width="2"/>`).join("")+
+    arches(80,170,6,48,15,"#56635c")+
+    Array.from({length:7},(_,i)=>`<path d="M${20+i*55} 160 h40 l-6 -14 h-28z" fill="${["#c0392b","#2f5d50","#e0a33a"][i%3]}"/>`).join(""),
+  capillas:(id)=> sky(id,"tarde")+hills("#c9a98a",150)+
+    `<path d="M120 170 V110 L150 95 H250 L280 110 V170Z" fill="#b88d63"/>`+
+    domeShape(200,96,110,60,TERRA)+windows(140,125,6,22,8,16,"#6b4f35")+
+    `<rect x="40" y="130" width="70" height="40" fill="#cdb79b"/><rect x="290" y="130" width="70" height="40" fill="#cdb79b"/>`,
+  santacroce:(id)=> sky(id,"tarde")+
+    `<rect x="100" y="70" width="200" height="100" fill="${MARBLE}"/><path d="M100 70 L200 30 L300 70Z" fill="${MARBLE}"/>`+
+    `<path d="M200 36 v14 M193 43 h14" stroke="${GREEN}" stroke-width="3"/>`+
+    `<circle cx="200" cy="90" r="14" fill="${GREEN}"/><circle cx="200" cy="90" r="8" fill="${PINK}"/>`+
+    `<rect x="148" y="70" width="4" height="100" fill="${GREEN}"/><rect x="248" y="70" width="4" height="100" fill="${GREEN}"/>`+
+    arches(200,170,1,0,18,GREEN)+arches(125,170,1,0,11,GREEN)+arches(275,170,1,0,11,GREEN)+
+    campanile(320,170,18,110,"#cdb79b")+`<rect x="0" y="160" width="400" height="10" fill="#cfc4b2"/>`,
+  uffizi:(id)=> sky(id,"ocaso")+
+    tower(250,60,22,48,"#b88d63")+
+    `<path d="M0 170 L0 60 L150 100 L150 170Z" fill="#c8b597"/><path d="M400 170 L400 60 L250 100 L250 170Z" fill="#b9a585"/>`+
+    `<path d="M150 100 H250 V170 H150Z" fill="#d6c6a8"/>`+arches(165,170,4,24,8,"#6d5c46")+
+    Array.from({length:5},(_,i)=>`<rect x="${10+i*28}" y="${110+i*6}" width="6" height="${60-i*6}" fill="#8f7d62"/>`).join("")+
+    Array.from({length:5},(_,i)=>`<rect x="${384-i*28}" y="${110+i*6}" width="6" height="${60-i*6}" fill="#7f6d54"/>`).join(""),
+  santospirito:(id)=> sky(id,"noche")+stars()+
+    `<rect x="110" y="62" width="180" height="108" fill="#f0e3c4"/>`+
+    `<path d="M150 62 Q150 30 200 26 Q250 30 250 62Z" fill="#f0e3c4"/>`+
+    `<path d="M118 62 q24 -2 32 -22 M282 62 q-24 -2 -32 -22" stroke="#d9c79f" stroke-width="5" fill="none"/>`+
+    `<circle cx="200" cy="48" r="8" fill="#d9c79f"/>`+
+    `<rect x="0" y="140" width="400" height="30" fill="#2a2a44"/>`+
+    Array.from({length:6},(_,i)=>`<circle cx="${30+i*68}" cy="146" r="10" fill="#ffd27a" opacity=".25"/><rect x="${26+i*68}" y="140" width="8" height="10" fill="#ffd27a"/>`).join("")
+};
+function scene(id){ const f = ART[id]; return `<svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${f?f(id):sky(id,"dia")}<rect width="400" height="170" fill="url(#fade${id})"/></svg>`; }
+
+/* Cabecera: skyline al atardecer */
+(function(){
+  const s = document.getElementById("herosky");
+  s.innerHTML = `<defs><linearGradient id="hs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2350"/><stop offset=".55" stop-color="#c8607a"/><stop offset=".85" stop-color="#f6a96a"/><stop offset="1" stop-color="#ffd79a"/></linearGradient></defs>
+  <rect width="800" height="420" fill="url(#hs)"/>
+  <circle cx="610" cy="300" r="46" fill="#ffe3ae" opacity=".95"/>
+  <path d="M0 330 Q120 280 260 310 T520 300 T800 296 V420 H0Z" fill="#7a5a86" opacity=".8"/>
+  <g fill="#2a2340">
+   <rect x="0" y="340" width="800" height="80"/>
+   <rect x="30" y="318" width="90" height="24"/><rect x="130" y="326" width="60" height="16"/>
+   <rect x="196" y="250" width="26" height="92"/>${[0,1,2,3].map(i=>`<rect x="${193+i*9}" y="244" width="5" height="7"/>`).join("")}
+   <rect x="180" y="300" width="80" height="42"/>
+   <path d="M330 340 V300 H470 V340Z"/>
+   <path d="M340 300 Q340 214 400 206 Q460 214 460 300Z"/>
+   <rect x="394" y="188" width="12" height="20"/><path d="M392 188 L400 172 L408 188Z"/>
+   <rect x="480" y="226" width="24" height="116"/>
+   <rect x="520" y="318" width="120" height="24"/><rect x="650" y="324" width="70" height="18"/>
+   <rect x="730" y="268" width="14" height="74"/>
+  </g>
+  <rect x="0" y="372" width="800" height="48" fill="#3a3466"/>
+  ${Array.from({length:14},(_,i)=>`<rect x="${(i*61)%780}" y="${380+(i*7)%30}" width="${20+(i*13)%30}" height="2" fill="#ffd9a8" opacity=".5"/>`).join("")}
+  <path d="M250 372 h300 v-10 h-300z" fill="#2a2340"/>${[300,400,500].map(x=>`<path d="M${x-40} 372 Q${x} 352 ${x+40} 372Z" fill="#3a3466"/>`).join("")}`;
+})();
+
+/* ---------- Audio y render ---------- */
+let current = 1, speaking = null;
+const synth = window.speechSynthesis;
+if(!synth) document.getElementById("nospeech").hidden = false;
+function getDone(){ try{ return JSON.parse(localStorage.getItem("flor-done")||"{}"); }catch(e){ return {}; } }
+function setDone(d){ try{ localStorage.setItem("flor-done", JSON.stringify(d)); }catch(e){} }
+function pickVoice(){ if(!synth) return null; const v = synth.getVoices();
+  return v.find(x=>x.lang==="es-ES") || v.find(x=>x.lang && x.lang.toLowerCase().startsWith("es")) || null; }
+if(synth) synth.onvoiceschanged = ()=>{};
+const words = t => t.split(/\s+/).length;
+const mins = t => Math.max(1, Math.round(words(t)/140));
+function chapters(s){ return [{t:"Lo esencial", text:s.text}].concat((typeof EXTRA!=="undefined" && EXTRA[s.id]) || []); }
+function resetButtons(){
+  document.querySelectorAll(".play").forEach(b=>{b.classList.remove("on");b.textContent="🔊 Escuchar todo";});
+  document.querySelectorAll(".chap").forEach(b=>{b.classList.remove("on");b.querySelector(".ico").textContent="▶";});
+}
+function stopAll(){ if(synth) synth.cancel(); speaking = null; resetButtons(); }
+function speakList(key, items, btn, onChapter){
+  if(!synth){ document.getElementById("nospeech").hidden=false; return; }
+  if(speaking===key){ stopAll(); return; }
+  stopAll(); speaking = key;
+  if(btn){ btn.classList.add("on"); if(btn.classList.contains("play")) btn.textContent="■ Parar"; else btn.querySelector(".ico").textContent="■"; }
+  const voice = pickVoice();
+  items.forEach((it, ci)=>{
+    const parts = (it.title + ". " + it.text.replace(/\s+/g," ")).match(/[^.!?]+[.!?]*/g) || [it.text];
+    parts.forEach((p,i)=>{
+      const u = new SpeechSynthesisUtterance(p.trim()); u.lang="es-ES"; if(voice) u.voice=voice; u.rate=0.95;
+      if(i===0 && onChapter) u.onstart = ()=>{ if(speaking===key) onChapter(ci); };
+      if(ci===items.length-1 && i===parts.length-1) u.onend = ()=>{ if(speaking===key) stopAll(); };
+      synth.speak(u);
+    });
+  });
+}
+function render(){
+  const d = DAYS[current], done = getDone();
+  document.getElementById("daynote").textContent = d.note;
+  const box = document.getElementById("stops"); box.innerHTML = "";
+  d.stops.forEach((s,i)=>{
+    const ch = chapters(s);
+    const total = ch.reduce((a,c)=>a+words(c.text),0);
+    const el = document.createElement("article");
+    el.className = "stop" + (done[s.id] ? " done" : ""); el.id = "stop-"+s.id;
+    el.innerHTML = `
+      <div class="scene">${scene(s.id)}<span class="num">${i+1} · ${s.when}</span><h2>${s.name}</h2></div>
+      <div class="body">
+        <div class="it">${s.it} <span class="dist" data-dist="${s.id}" hidden></span></div>
+        <div class="info">${s.info.map(x=>`<span>${x}</span>`).join("")}</div>
+        <div class="actions">
+          <button class="btn play" type="button">🔊 Escuchar todo</button><span class="dur">≈ ${Math.round(total/140)} min · ${ch.length} capítulos</span>
+          <a class="btn ghost" href="${ROUTE(s.map)}" target="_blank" rel="noopener">🚶 Llévame</a>
+          <a class="btn ghost" href="${PHOTOS(s.map)}" target="_blank" rel="noopener">📷 Fotos</a>
+          ${s.link?`<a class="btn ghost" href="${s.link.href}" target="_blank" rel="noopener">🎟 ${s.link.label}</a>`:""}
+        </div>
+        <ol class="chaps">${ch.map((c,ci)=>`<li><button class="chap" type="button" data-ci="${ci}"><span class="ico">▶</span><span class="ct">${c.t}</span><span class="cm">${mins(c.text)} min</span></button></li>`).join("")}</ol>
+        <details><summary>Leer el texto completo y qué mirar</summary>
+          ${ch.map(c=>`<h4>${c.t}</h4>`+c.text.split(/\n\s*\n/).map(p=>`<p>${p}</p>`).join("")).join("")}
+          <h4>Qué no te puedes perder</h4>
+          <ul class="look">${s.look.map(l=>`<li>${l}</li>`).join("")}</ul>
+        </details>
+        <label class="check"><input type="checkbox" id="chk-${s.id}" ${done[s.id]?"checked":""}> Visto</label>
+      </div>`;
+    const chapBtns = [...el.querySelectorAll(".chap")];
+    const mark = ci => { chapBtns.forEach((b,k)=>b.classList.toggle("cur", k===ci)); };
+    el.querySelector(".play").addEventListener("click", e=>speakList(s.id+":all", ch.map(c=>({title:c.t===ch[0].t? s.name : c.t, text:c.text})), e.currentTarget, mark));
+    chapBtns.forEach((b,ci)=>b.addEventListener("click", ()=>speakList(s.id+":"+ci, [{title: ci===0? s.name : ch[ci].t, text: ch[ci].text}], b, null)));
+    el.querySelector("input").addEventListener("change", e=>{ const dd=getDone(); dd[s.id]=e.target.checked; setDone(dd); el.classList.toggle("done", e.target.checked); });
+    box.appendChild(el);
+  });
+}
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>{
+  stopAll(); current = +b.dataset.day;
+  document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected", x===b));
+  try{ localStorage.setItem("flor-day", current); }catch(e){}
+  render(); document.querySelector(".tabs").scrollIntoView({behavior:"smooth"});
+}));
+try{ if(+localStorage.getItem("flor-day")===2){ current=2; tab1.setAttribute("aria-selected","false"); tab2.setAttribute("aria-selected","true"); } }catch(e){}
+/* ---------- Ubicación (solo versión web propia) ---------- */
+const COORDS = {
+  duomo:[43.7731,11.2560], accademia:[43.7768,11.2587], cupula:[43.7733,11.2569], orsanmichele:[43.7708,11.2547],
+  signoria:[43.7696,11.2558], ponte:[43.7680,11.2531], piazzale:[43.7629,11.2650], campanile:[43.7728,11.2556],
+  mercato:[43.7764,11.2532], capillas:[43.7752,11.2534], santacroce:[43.7685,11.2622], uffizi:[43.7678,11.2553],
+  santospirito:[43.7672,11.2479]
+};
+const ALL = [...DAYS[1].stops, ...DAYS[2].stops];
+let here = null, lastArrived = null;
+function dist(a,b){ const R=6371000, toR=x=>x*Math.PI/180;
+  const dLat=toR(b[0]-a[0]), dLon=toR(b[1]-a[1]);
+  const h=Math.sin(dLat/2)**2+Math.cos(toR(a[0]))*Math.cos(toR(b[0]))*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(h)); }
+const fmt = m => m<1000 ? Math.round(m/10)*10+" m" : (m/1000).toFixed(1).replace(".",",")+" km";
+function updateGeo(){
+  if(!here) return;
+  document.querySelectorAll("[data-dist]").forEach(el=>{ const c=COORDS[el.dataset.dist]; if(c){ el.textContent="📍 a "+fmt(dist(here,c)); el.hidden=false; } });
+  let best=null; ALL.forEach(s=>{ const c=COORDS[s.id]; if(!c) return; const d=dist(here,c); if(!best||d<best.d) best={s,d}; });
+  const bar=document.getElementById("geobar"); bar.hidden=false;
+  const near = best.d < 80;
+  bar.classList.toggle("arrived", near);
+  document.getElementById("geotxt").innerHTML = near ? `Has llegado a <b>${best.s.name}</b>` : `Lo más cercano: <b>${best.s.name}</b> · a ${fmt(best.d)}`;
+  const go=document.getElementById("geogo"); go.dataset.id=best.s.id; go.textContent = near ? "🔊 Escuchar" : "Ver";
+  if(near && lastArrived!==best.s.id){ lastArrived=best.s.id; if(navigator.vibrate) try{navigator.vibrate(200);}catch(e){} }
+}
+function startGeo(){
+  if(!navigator.geolocation){ document.getElementById("geomsg").textContent="Este navegador no da la ubicación."; return; }
+  document.getElementById("geomsg").textContent="Buscando tu posición…";
+  navigator.geolocation.watchPosition(p=>{ here=[p.coords.latitude,p.coords.longitude]; document.getElementById("geomsg").textContent="Ubicación activada."; document.getElementById("geostart").hidden=true; updateGeo(); },
+    e=>{ document.getElementById("geomsg").textContent = e.code===1 ? "Has denegado la ubicación. Actívala en Ajustes > Privacidad > Localización > Safari." : "No consigo tu posición ahora mismo."; },
+    {enableHighAccuracy:true, maximumAge:10000, timeout:20000});
+}
+document.getElementById("geostart").addEventListener("click", startGeo);
+document.getElementById("geogo").addEventListener("click", e=>{
+  const id=e.currentTarget.dataset.id; const day = DAYS[1].stops.some(s=>s.id===id)?1:2;
+  if(day!==current) document.querySelector(`.tabs button[data-day="${day}"]`).click();
+  setTimeout(()=>{ const card=document.getElementById("stop-"+id); if(!card) return; card.scrollIntoView({behavior:"smooth",block:"start"});
+    if(e.currentTarget.textContent.includes("Escuchar")) card.querySelector(".play").click(); }, 60);
+});
+const _render = render; render = function(){ _render(); updateGeo(); };
+render();
+
+</script>
+</body></html>
