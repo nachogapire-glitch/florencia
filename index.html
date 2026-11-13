@@ -101,6 +101,10 @@ details p{margin:.6em 0 0}
 .fhead span{font-size:13.5px;color:var(--muted)}
 .fitem .btn{align-self:flex-start}
 .tabs button{padding:11px 4px;font-size:14px}
+.hotel{background:var(--surface);border-radius:14px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(40,30,60,.08)}
+.hotel>div{display:flex;flex-direction:column;min-width:0;flex:1 1 220px}
+.hotel span{font-size:14px;color:var(--muted)}
+.hotel .btn{background:var(--verde);color:var(--bg)}
 .tips{background:var(--surface);border-radius:16px;padding:16px;box-shadow:0 6px 24px rgba(40,30,60,.08)}
 .tips h3{font-family:var(--f-display);font-size:20px;margin:0 0 6px;color:var(--rosa)}
 .tips ul{margin:0;padding-left:1.1em}
@@ -125,6 +129,11 @@ details p{margin:.6em 0 0}
     <div>🗓 <b>Hoy viernes, 16:00</b> · Galleria dell'Accademia, el David, con guía. Dura 2 h a 2 h 30. Llega 15 minutos antes.</div>
     <div>🗓 <b>Mañana sábado, 13:30</b> · Duomo con subida, 30 a 40 minutos. Lleva DNI o pasaporte.</div>
     <div>Lo único que te queda por comprar: los <b>Uffizi</b> del sábado a las 8:15 (25 € en taquilla, 29 € online).</div>
+  </div>
+
+  <div class="hotel" id="hotel">
+    <div><b>🏨 Hotel Delle Camelie</b><span>Via di Barbano 10 · junto a Piazza Indipendenza, a 6 min del Mercato Central <span class="dist" data-dist="hotel" hidden></span></span></div>
+    <a class="btn" href="https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=Hotel%20Delle%20Camelie%2C%20Via%20di%20Barbano%2010%2C%20Firenze" target="_blank" rel="noopener">🚶 Volver al hotel</a>
   </div>
 
   <div class="where">
@@ -266,6 +275,25 @@ const DAYS = {
      "Las trastiendas colgadas sobre el río, sostenidas por vigas de madera"
     ],
     "text": "Estás en el puente más antiguo de Florencia y uno de los más famosos del mundo. Su nombre lo dice todo: Ponte Vecchio, el Puente Viejo. Aquí, en un punto estrecho del río Arno, ya hubo un puente en época romana. Los puentes anteriores fueron destruidos por las riadas, y el que ves se reconstruyó en 1345 con tres arcos de piedra muy rebajados, algo muy avanzado para la época.\n\nDesde el principio el puente tuvo tiendas encima, porque era un lugar de paso obligado. Primero estuvieron aquí los carniceros, los pescaderos y los curtidores, que tiraban los restos directamente al río. Te puedes imaginar el olor. En 1593, el gran duque Fernando primero de Médici se hartó, los echó a todos y decretó que solo pudieran instalarse orfebres y joyeros, un comercio más digno para un puente por el que él pasaba a diario. Más de cuatrocientos años después, siguen aquí. Fíjate en las tiendas que cuelgan hacia el río, por la parte de atrás: son ampliaciones que los comerciantes fueron añadiendo a lo largo de los siglos, sostenidas con vigas de madera.\n\nAhora mira hacia arriba, por encima de las tiendas de uno de los lados. Verás un pasillo cerrado con ventanas. Es el Corredor Vasariano. En 1565, Cosme primero de Médici, que vivía en el Palacio Pitti, al otro lado del río, y gobernaba desde el Palazzo Vecchio y los Uffizi, encargó a Giorgio Vasari un pasillo privado para ir de su casa a su oficina sin pisar la calle, sin mezclarse con la gente y sin correr el riesgo de un atentado. Vasari lo construyó en solo cinco meses: casi un kilómetro de pasillo que atraviesa edificios, pasa por encima del puente y llega hasta el Palacio Pitti. Hay una anécdota curiosa: en un punto el corredor tiene que rodear una torre, porque la familia Mannelli, sus propietarios, se negó a dejar que la atravesaran. Y cuando pasa por la iglesia de Santa Felicita, tiene un balcón desde el que los Médici podían oír misa sin ser vistos.\n\nEn el centro del puente, los edificios se abren y aparece un mirador sobre el río. Ahí está el busto de Benvenuto Cellini, el orfebre y escultor del Perseo que viste en la Señoría, patrón de los joyeros del puente. Durante años los enamorados ponían candados en la verja que lo rodea; ahora está prohibido y la multa es importante.\n\nY una historia más reciente. En agosto de 1944, cuando el ejército alemán se retiraba de Florencia ante el avance aliado, voló todos los puentes de la ciudad para frenar la persecución. Todos menos este. Se dice que fue por orden expresa de Hitler, que lo había visitado en 1938 y lo admiraba. Para cortar el paso, en cambio, destruyeron los edificios medievales de ambos extremos. En 1966, una terrible inundación del Arno llegó a cubrir las tiendas y arrastró las joyas de muchos comercios, pero el puente aguantó.\n\nSi quieres la mejor foto del Ponte Vecchio, camina hasta el siguiente puente río abajo, el de Santa Trinita, y míralo desde allí con la luz de la tarde reflejada en el agua."
+   },
+   {
+    "id": "mercato",
+    "when": "Noche · cena al lado del hotel",
+    "name": "Mercato Centrale",
+    "it": "Comida en San Lorenzo",
+    "info": [
+     "Planta baja (puestos y Da Nerbone): lunes a sábado hasta las 15:00, domingo cerrado",
+     "Planta de arriba (zona de comidas): todos los días de 10:00 a 23:00",
+     "A unos 6 minutos andando de tu hotel"
+    ],
+    "map": "Mercato Centrale Firenze",
+    "look": [
+     "Da Nerbone, en la planta baja: lampredotto o bollito en bocadillo (antes de las 13:00)",
+     "Arriba: el puesto de trufa, la pizza napolitana y los Trapizzino romanos",
+     "La cervecería y el bar de vino Chianti Classico del centro de la planta de arriba",
+     "Baroni, en la planta baja: quesos y embutidos para llevar, te los envasan al vacío"
+    ],
+    "text": "Hora de comer como un florentino. Estás en el Mercato Centrale, el gran mercado de abastos de la ciudad, en el barrio de San Lorenzo.\n\nEl edificio es de 1874 y lo diseñó Giuseppe Mengoni, el mismo arquitecto de la Galería Vittorio Emanuele de Milán. Es una gran nave de hierro fundido y cristal, muy moderna para su época, construida en los años en que Florencia acababa de ser capital de Italia y quería parecerse a París o a Londres.\n\nEn la planta baja está el mercado de verdad, el que usan los vecinos. Date una vuelta por las carnicerías, con los cortes de buey toscano con los que se hace la bistecca alla fiorentina; por los puestos de quesos, con el pecorino toscano; por los embutidos, como la finocchiona, un salami con semillas de hinojo; y por las verdulerías. En noviembre estás en plena temporada de setas porcini y de trufa blanca, que se recoge en las colinas de Toscana, a poca distancia de aquí. También es el momento del aceite nuevo de oliva, el olio nuovo, verde intenso y picante, que los toscanos toman sobre pan tostado con ajo.\n\nEn la planta de arriba hay un gran patio de comidas, con puestos de pasta fresca, pizza, carnes y vinos, donde puedes comer un poco de todo sentado en mesas compartidas.\n\nPero si quieres probar algo de verdad florentino, busca un puesto de lampredotto. El lampredotto es el cuarto estómago de la vaca, cocido durante horas en un caldo con tomate, cebolla, apio y perejil. Se sirve en un panecillo redondo cuyo interior se moja en el mismo caldo, con salsa verde de perejil y alcaparras y, si quieres, un poco de aceite picante. Es la comida de los trabajadores florentinos desde hace siglos, y en la ciudad hay quioscos ambulantes de lampredotto que son toda una institución. Pídelo bagnato, mojado, y con salsa verde. Si no te atreves, la alternativa es un panino con porchetta o un plato de pappardelle con ragú de jabalí.\n\nAl salir del mercado estarás en las calles del mercado de San Lorenzo, llenas de puestos de cuero: bolsos, cinturones, chaquetas y carteras. Florencia tiene una larga tradición de curtido y marroquinería, pero aquí hay de todo, desde piezas buenas hasta productos importados. Tócalo, huélelo y mira las costuras, y no tengas miedo a regatear con amabilidad.\n\nA unos pasos tienes la basílica de San Lorenzo, la iglesia parroquial de los Médici, con su fachada de ladrillo sin terminar. Miguel Ángel diseñó una fachada de mármol para ella que nunca se construyó. Detrás de la iglesia están las Capillas Mediceas, tu siguiente parada si te apetece."
    }
   ]
  },
@@ -317,19 +345,20 @@ const DAYS = {
    },
    {
     "id": "mercato",
-    "when": "12:00 · comer pronto",
+    "when": "Sáb 12:00 · o para cenar",
     "name": "Mercato Centrale",
     "it": "Comida en San Lorenzo",
     "info": [
-     "Planta baja: puestos y Da Nerbone",
-     "Primera planta: patio de comidas",
-     "A 5 min del Duomo: llegas sobrado a las 13:30"
+     "Planta baja (puestos y Da Nerbone): lunes a sábado hasta las 15:00, domingo cerrado",
+     "Planta de arriba (zona de comidas): todos los días de 10:00 a 23:00",
+     "A unos 6 minutos andando de tu hotel"
     ],
     "map": "Mercato Centrale Firenze",
     "look": [
-     "El puesto de lampredotto: pídelo con salsa verde y un poco de picante",
-     "La estructura de hierro y cristal del siglo diecinueve",
-     "Los puestos de setas y trufas, en plena temporada de noviembre"
+     "Da Nerbone, en la planta baja: lampredotto o bollito en bocadillo (antes de las 13:00)",
+     "Arriba: el puesto de trufa, la pizza napolitana y los Trapizzino romanos",
+     "La cervecería y el bar de vino Chianti Classico del centro de la planta de arriba",
+     "Baroni, en la planta baja: quesos y embutidos para llevar, te los envasan al vacío"
     ],
     "text": "Hora de comer como un florentino. Estás en el Mercato Centrale, el gran mercado de abastos de la ciudad, en el barrio de San Lorenzo.\n\nEl edificio es de 1874 y lo diseñó Giuseppe Mengoni, el mismo arquitecto de la Galería Vittorio Emanuele de Milán. Es una gran nave de hierro fundido y cristal, muy moderna para su época, construida en los años en que Florencia acababa de ser capital de Italia y quería parecerse a París o a Londres.\n\nEn la planta baja está el mercado de verdad, el que usan los vecinos. Date una vuelta por las carnicerías, con los cortes de buey toscano con los que se hace la bistecca alla fiorentina; por los puestos de quesos, con el pecorino toscano; por los embutidos, como la finocchiona, un salami con semillas de hinojo; y por las verdulerías. En noviembre estás en plena temporada de setas porcini y de trufa blanca, que se recoge en las colinas de Toscana, a poca distancia de aquí. También es el momento del aceite nuevo de oliva, el olio nuovo, verde intenso y picante, que los toscanos toman sobre pan tostado con ajo.\n\nEn la planta de arriba hay un gran patio de comidas, con puestos de pasta fresca, pizza, carnes y vinos, donde puedes comer un poco de todo sentado en mesas compartidas.\n\nPero si quieres probar algo de verdad florentino, busca un puesto de lampredotto. El lampredotto es el cuarto estómago de la vaca, cocido durante horas en un caldo con tomate, cebolla, apio y perejil. Se sirve en un panecillo redondo cuyo interior se moja en el mismo caldo, con salsa verde de perejil y alcaparras y, si quieres, un poco de aceite picante. Es la comida de los trabajadores florentinos desde hace siglos, y en la ciudad hay quioscos ambulantes de lampredotto que son toda una institución. Pídelo bagnato, mojado, y con salsa verde. Si no te atreves, la alternativa es un panino con porchetta o un plato de pappardelle con ragú de jabalí.\n\nAl salir del mercado estarás en las calles del mercado de San Lorenzo, llenas de puestos de cuero: bolsos, cinturones, chaquetas y carteras. Florencia tiene una larga tradición de curtido y marroquinería, pero aquí hay de todo, desde piezas buenas hasta productos importados. Tócalo, huélelo y mira las costuras, y no tengas miedo a regatear con amabilidad.\n\nA unos pasos tienes la basílica de San Lorenzo, la iglesia parroquial de los Médici, con su fachada de ladrillo sin terminar. Miguel Ángel diseñó una fachada de mármol para ella que nunca se construyó. Detrás de la iglesia están las Capillas Mediceas, tu siguiente parada si te apetece."
    },
@@ -737,8 +766,30 @@ Dentro del palacio hay varios museos: la Galería Palatina, llena de cuadros de 
 
 Y ahora sí, la despedida. Has visto en dos días la cúpula que nadie sabía construir, las puertas del Paraíso, el David, a Botticelli y a Miguel Ángel enterrado entre los grandes. Florencia tenía unos cuarenta o cincuenta mil habitantes cuando ocurrió casi todo esto, menos que muchas ciudades medianas de hoy, y aun así cambió la manera de ver el mundo de toda Europa. Hay un dicho que dice que Florencia no se visita, se vuelve. Seguro que vuelves.`}
 ];
+EXTRA.mercato.push({t:"La planta de arriba: qué se puede comer",text:`La planta de arriba del mercado se reformó hace unos años y se convirtió en una gran zona de comidas, con mesas compartidas en el centro y puestos alrededor. Abre todos los días desde por la mañana hasta las once de la noche, y los fines de semana algo más, así que es perfecta para cenar cerca de tu hotel sin reservar. Los puestos cambian con el tiempo, así que date una vuelta antes de decidir, pero esto es lo que suele haber.
+
+Un puesto dedicado a la trufa, con platos sencillos para que mande ella: tagliolini, pasta fresca muy fina, con trufa rallada en el momento, o un huevo frito con trufa por encima. En noviembre estás en plena temporada de trufa blanca, la más aromática y cara, así que pregunta si la tienen.
+
+Pizza napolitana al horno de leña, de masa alta y blanda en los bordes, y también la pizza frita, una especialidad de Nápoles.
+
+Trapizzino, un invento romano: un triángulo de pizza blanca, abierto como un bolsillo y relleno de guisos tradicionales de Roma, como pollo a la cazadora, albóndigas o callos. Se come con la mano y es perfecto para picar.
+
+Además suele haber puestos de pasta fresca hecha allí mismo, de carne a la brasa, de embutidos y quesos toscanos, de pescado y marisco, de cocina vegetariana, de dulces y de helado. Y en el centro, una zona de bar con cerveza, incluida artesana, y una barra de vinos del Chianti Classico, ideal para probar un par de copas de la región mientras decides.
+
+El funcionamiento es fácil: cada uno pide en el puesto que quiera, paga allí y se lleva la comida a cualquier mesa libre. Así podéis compartir cosas de varios sitios.
+
+Si vas a mediodía, no te olvides de la planta baja, que es el mercado de verdad y solo abre hasta media tarde. Allí está Da Nerbone, el puesto de lampredotto que funciona desde 1872: pide el bocadillo de lampredotto o de bollito, la carne hervida, con salsa verde, y cómetelo de pie en el mostrador como los florentinos. Mejor antes de la una, porque luego se forma cola. Y si quieres llevarte algo a casa, en puestos como Baroni te envasan al vacío quesos como el pecorino toscano y embutidos como la finocchiona, para que viajen sin problema en la maleta.`});
 
 const FOOD = [
+ {sec:"🏨 Cerca del hotel", note:"Todo a 10 minutos andando o menos de Via di Barbano.", items:[
+  {n:"Mercato Centrale (planta de arriba)",z:"6 min · San Lorenzo",d:"Zona de comidas abierta todos los días hasta las 23:00: trufa, pizza napolitana, Trapizzino romano, pasta fresca, cervecería y vinos del Chianti. Sin reservar.",q:"Mercato Centrale Firenze"},
+  {n:"Osteria Il Giardino di Barbano",z:"2 min · Piazza Indipendenza 3",d:"Cocina toscana en la misma plaza del hotel. Solo cenas; se puede reservar por TheFork.",q:"Osteria Il Giardino di Barbano, Piazza Indipendenza 3"},
+  {n:"Fuoco Matto",z:"5 min · Via XXVII Aprile 16",d:"Restaurante de barrio con pizza al horno de leña y carnes. Mejor reservar.",q:"Fuoco Matto, Via Ventisette Aprile 16"},
+  {n:"Da Nerbone",z:"6 min · planta baja del mercado",d:"Bocadillo de lampredotto o bollito, de pie en el mostrador. Solo a mediodía, cerrado domingo.",q:"Da Nerbone, Mercato Centrale"},
+  {n:"Trattoria Mario",z:"7 min · Via Rosina 2",d:"Trattoria familiar de mesas compartidas: ribollita y bistecca. Solo a mediodía; llega pronto.",q:"Trattoria Mario, Via Rosina 2"},
+  {n:"Casa del Vino",z:"6 min · Via dell'Ariento 16",d:"Vinoteca de toda la vida junto al mercado, con vinos por copas y panini creativos. Cierra los domingos.",q:"Casa del Vino, Via dell'Ariento 16"},
+  {n:"Trattoria Sergio Gozzi",z:"9 min · frente a San Lorenzo",d:"Cocina florentina sencilla con menú que cambia cada día. No se reserva.",q:"Trattoria Sergio Gozzi, Piazza San Lorenzo"},
+  {n:"Alibi Craft Beer",z:"8 min · Via Faenza 21",d:"Cervezas artesanas raras con hamburguesas, de camino entre el hotel y la estación.",q:"Alibi Craft Beer, Via Faenza 21"}]},
  {sec:"🍺 Cerveza artesana", note:"Para probar cervezas italianas y toscanas de pequeños productores.", items:[
   {n:"King Grizzly",z:"Centro, entre Palazzo Strozzi y el Bargello",d:"Pub de aire de taberna con cervezas artesanas italianas, locales y extranjeras. Muy céntrico, pero con pocas mesas.",q:"King Grizzly, Via del Canto alla Quarconia 7"},
   {n:"Pint of View",z:"Oltrarno, al lado de Santo Spirito",d:"Gastropub cuidado con IPAs, stouts y saisons, cócteles y cocina de inspiración asiática. Perfecto para la última noche.",q:"Pint of View, Borgo Tegolaio 17"},
@@ -1029,7 +1080,7 @@ const COORDS = {
   duomo:[43.7731,11.2560], accademia:[43.7768,11.2587], cupula:[43.7733,11.2569], orsanmichele:[43.7708,11.2547],
   signoria:[43.7696,11.2558], ponte:[43.7680,11.2531], piazzale:[43.7629,11.2650], campanile:[43.7728,11.2556],
   mercato:[43.7764,11.2532], capillas:[43.7752,11.2534], santacroce:[43.7685,11.2622], uffizi:[43.7678,11.2553],
-  santospirito:[43.7672,11.2479]
+  santospirito:[43.7672,11.2479], hotel:[43.7792,11.2538]
 };
 const ALL = [...DAYS[1].stops, ...DAYS[2].stops];
 let here = null, lastArrived = null;
