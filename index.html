@@ -127,6 +127,7 @@ details p{margin:.6em 0 0}
   <div class="alert">
     <div><b>Tus reservas (Civitatis)</b></div>
     <div>🗓 <b>Hoy viernes, 16:00</b> · Galleria dell'Accademia, el David, con guía. Dura 2 h a 2 h 30. Llega 15 minutos antes.</div>
+    <div>🍝 <b>Hoy viernes, 21:00</b> · Cena en la Antica Trattoria da Tito (Via San Gallo 112r).</div>
     <div>🗓 <b>Mañana sábado, 13:30</b> · Duomo con subida, 30 a 40 minutos. Lleva DNI o pasaporte.</div>
     <div>Lo único que te queda por comprar: los <b>Uffizi</b> del sábado a las 8:15 (25 € en taquilla, 29 € online).</div>
   </div>
@@ -183,7 +184,7 @@ const PHOTOS = q => "https://www.google.com/search?tbm=isch&q=" + encodeURICompo
 
 const DAYS = {
  "1": {
-  "note": "Al llegar, paseo por el centro hasta las 16:00, cuando empieza la visita del David con Civitatis (2 h a 2 h 30). Después, el Ponte Vecchio iluminado y a cenar en Oltrarno.",
+  "note": "Al llegar, paseo por el centro hasta las 16:00, cuando empieza la visita del David con Civitatis (2 h a 2 h 30). Después, el Ponte Vecchio iluminado y a las 21:00 cena en la Trattoria da Tito, cerca del hotel.",
   "stops": [
    {
     "id": "duomo",
@@ -277,23 +278,23 @@ const DAYS = {
     "text": "Estás en el puente más antiguo de Florencia y uno de los más famosos del mundo. Su nombre lo dice todo: Ponte Vecchio, el Puente Viejo. Aquí, en un punto estrecho del río Arno, ya hubo un puente en época romana. Los puentes anteriores fueron destruidos por las riadas, y el que ves se reconstruyó en 1345 con tres arcos de piedra muy rebajados, algo muy avanzado para la época.\n\nDesde el principio el puente tuvo tiendas encima, porque era un lugar de paso obligado. Primero estuvieron aquí los carniceros, los pescaderos y los curtidores, que tiraban los restos directamente al río. Te puedes imaginar el olor. En 1593, el gran duque Fernando primero de Médici se hartó, los echó a todos y decretó que solo pudieran instalarse orfebres y joyeros, un comercio más digno para un puente por el que él pasaba a diario. Más de cuatrocientos años después, siguen aquí. Fíjate en las tiendas que cuelgan hacia el río, por la parte de atrás: son ampliaciones que los comerciantes fueron añadiendo a lo largo de los siglos, sostenidas con vigas de madera.\n\nAhora mira hacia arriba, por encima de las tiendas de uno de los lados. Verás un pasillo cerrado con ventanas. Es el Corredor Vasariano. En 1565, Cosme primero de Médici, que vivía en el Palacio Pitti, al otro lado del río, y gobernaba desde el Palazzo Vecchio y los Uffizi, encargó a Giorgio Vasari un pasillo privado para ir de su casa a su oficina sin pisar la calle, sin mezclarse con la gente y sin correr el riesgo de un atentado. Vasari lo construyó en solo cinco meses: casi un kilómetro de pasillo que atraviesa edificios, pasa por encima del puente y llega hasta el Palacio Pitti. Hay una anécdota curiosa: en un punto el corredor tiene que rodear una torre, porque la familia Mannelli, sus propietarios, se negó a dejar que la atravesaran. Y cuando pasa por la iglesia de Santa Felicita, tiene un balcón desde el que los Médici podían oír misa sin ser vistos.\n\nEn el centro del puente, los edificios se abren y aparece un mirador sobre el río. Ahí está el busto de Benvenuto Cellini, el orfebre y escultor del Perseo que viste en la Señoría, patrón de los joyeros del puente. Durante años los enamorados ponían candados en la verja que lo rodea; ahora está prohibido y la multa es importante.\n\nY una historia más reciente. En agosto de 1944, cuando el ejército alemán se retiraba de Florencia ante el avance aliado, voló todos los puentes de la ciudad para frenar la persecución. Todos menos este. Se dice que fue por orden expresa de Hitler, que lo había visitado en 1938 y lo admiraba. Para cortar el paso, en cambio, destruyeron los edificios medievales de ambos extremos. En 1966, una terrible inundación del Arno llegó a cubrir las tiendas y arrastró las joyas de muchos comercios, pero el puente aguantó.\n\nSi quieres la mejor foto del Ponte Vecchio, camina hasta el siguiente puente río abajo, el de Santa Trinita, y míralo desde allí con la luz de la tarde reflejada en el agua."
    },
    {
-    "id": "mercato",
-    "when": "Noche · cena al lado del hotel",
-    "name": "Mercato Centrale",
-    "it": "Comida en San Lorenzo",
+    "id": "tito",
+    "when": "21:00 · cena reservada",
+    "name": "Antica Trattoria da Tito",
+    "it": "Cena de hoy · a 7 min del hotel",
     "info": [
-     "Planta baja (puestos y Da Nerbone): lunes a sábado hasta las 15:00, domingo cerrado",
-     "Planta de arriba (zona de comidas): todos los días de 10:00 a 23:00",
-     "A unos 6 minutos andando de tu hotel"
+     "Mesa a las 21:00",
+     "Via San Gallo 112r",
+     "Teléfono: +39 055 472475"
     ],
-    "map": "Mercato Centrale Firenze",
+    "map": "Antica Trattoria da Tito, Via San Gallo 112",
     "look": [
-     "Da Nerbone, en la planta baja: lampredotto o bollito en bocadillo (antes de las 13:00)",
-     "Arriba: el puesto de trufa, la pizza napolitana y los Trapizzino romanos",
-     "La cervecería y el bar de vino Chianti Classico del centro de la planta de arriba",
-     "Baroni, en la planta baja: quesos y embutidos para llevar, te los envasan al vacío"
+     "Pappa al pomodoro o ribollita de primero",
+     "Macarrones o lasaña con ragú florentino",
+     "Bistecca al peso (mínimo 1,2 kg, para compartir) o trippa alla fiorentina",
+     "De postre, cantucci con vin santo"
     ],
-    "text": "Hora de comer como un florentino. Estás en el Mercato Centrale, el gran mercado de abastos de la ciudad, en el barrio de San Lorenzo.\n\nEl edificio es de 1874 y lo diseñó Giuseppe Mengoni, el mismo arquitecto de la Galería Vittorio Emanuele de Milán. Es una gran nave de hierro fundido y cristal, muy moderna para su época, construida en los años en que Florencia acababa de ser capital de Italia y quería parecerse a París o a Londres.\n\nEn la planta baja está el mercado de verdad, el que usan los vecinos. Date una vuelta por las carnicerías, con los cortes de buey toscano con los que se hace la bistecca alla fiorentina; por los puestos de quesos, con el pecorino toscano; por los embutidos, como la finocchiona, un salami con semillas de hinojo; y por las verdulerías. En noviembre estás en plena temporada de setas porcini y de trufa blanca, que se recoge en las colinas de Toscana, a poca distancia de aquí. También es el momento del aceite nuevo de oliva, el olio nuovo, verde intenso y picante, que los toscanos toman sobre pan tostado con ajo.\n\nEn la planta de arriba hay un gran patio de comidas, con puestos de pasta fresca, pizza, carnes y vinos, donde puedes comer un poco de todo sentado en mesas compartidas.\n\nPero si quieres probar algo de verdad florentino, busca un puesto de lampredotto. El lampredotto es el cuarto estómago de la vaca, cocido durante horas en un caldo con tomate, cebolla, apio y perejil. Se sirve en un panecillo redondo cuyo interior se moja en el mismo caldo, con salsa verde de perejil y alcaparras y, si quieres, un poco de aceite picante. Es la comida de los trabajadores florentinos desde hace siglos, y en la ciudad hay quioscos ambulantes de lampredotto que son toda una institución. Pídelo bagnato, mojado, y con salsa verde. Si no te atreves, la alternativa es un panino con porchetta o un plato de pappardelle con ragú de jabalí.\n\nAl salir del mercado estarás en las calles del mercado de San Lorenzo, llenas de puestos de cuero: bolsos, cinturones, chaquetas y carteras. Florencia tiene una larga tradición de curtido y marroquinería, pero aquí hay de todo, desde piezas buenas hasta productos importados. Tócalo, huélelo y mira las costuras, y no tengas miedo a regatear con amabilidad.\n\nA unos pasos tienes la basílica de San Lorenzo, la iglesia parroquial de los Médici, con su fachada de ladrillo sin terminar. Miguel Ángel diseñó una fachada de mármol para ella que nunca se construyó. Detrás de la iglesia están las Capillas Mediceas, tu siguiente parada si te apetece."
+    "text": "Esta noche cenáis en una de las trattorias más veteranas de Florencia: la Antica Trattoria da Tito abrió en 1913, hace más de un siglo, en la Via San Gallo, una calle del barrio de San Marco, al norte del centro y muy cerca de vuestro hotel.\n\nEs una trattoria de las de antes, de ambiente animado, con muchos florentinos entre los clientes, raciones generosas y camareros con mucha gracia, que forman parte del espectáculo. No esperes una cena tranquila y silenciosa; esperad ruido, risas y buena comida toscana sin complicaciones.\n\nSi queréis probar la cocina florentina de verdad, aquí tenéis por dónde ir. De primero, una pappa al pomodoro, la crema de pan con tomate y albahaca de la que te hablé en el mercado, o una pasta con ragú florentino, el guiso de carne a fuego lento. Si os atrevéis con lo más tradicional, la trippa alla fiorentina, callos guisados con tomate y parmesano. Y de segundo, la reina de la casa: la bistecca alla fiorentina. Aquí se vende al peso con un mínimo de algo más de un kilo, así que es para compartir entre dos, y llega a la mesa poco hecha, como manda la tradición.\n\nPara beber, un Chianti de la casa. Y de postre, cantucci para mojar en vin santo. Después, el hotel está a unos siete minutos andando. Buen provecho."
    }
   ]
  },
@@ -782,6 +783,7 @@ Si vas a mediodía, no te olvides de la planta baja, que es el mercado de verdad
 
 const FOOD = [
  {sec:"🏨 Cerca del hotel", note:"Todo a 10 minutos andando o menos de Via di Barbano.", items:[
+  {n:"Antica Trattoria da Tito",z:"7 min · Via San Gallo 112r",d:"Trattoria de 1913 con mucho ambiente local y raciones generosas: pappa al pomodoro, lasaña y macarrones con ragú florentino, callos y bistecca al peso (mínimo 1,2 kg). Abre todos los días de 12:30 a 15:00 y de 18:30 a 22:30. Reserva por teléfono: +39 055 472475.",q:"Antica Trattoria da Tito, Via San Gallo 112"},
   {n:"Mercato Centrale (planta de arriba)",z:"6 min · San Lorenzo",d:"Zona de comidas abierta todos los días hasta las 23:00: trufa, pizza napolitana, Trapizzino romano, pasta fresca, cervecería y vinos del Chianti. Sin reservar.",q:"Mercato Centrale Firenze"},
   {n:"Osteria Il Giardino di Barbano",z:"2 min · Piazza Indipendenza 3",d:"Cocina toscana en la misma plaza del hotel. Solo cenas; se puede reservar por TheFork.",q:"Osteria Il Giardino di Barbano, Piazza Indipendenza 3"},
   {n:"Fuoco Matto",z:"5 min · Via XXVII Aprile 16",d:"Restaurante de barrio con pizza al horno de leña y carnes. Mejor reservar.",q:"Fuoco Matto, Via Ventisette Aprile 16"},
@@ -947,6 +949,7 @@ const ART = {
     `<rect x="0" y="140" width="400" height="30" fill="#2a2a44"/>`+
     Array.from({length:6},(_,i)=>`<circle cx="${30+i*68}" cy="146" r="10" fill="#ffd27a" opacity=".25"/><rect x="${26+i*68}" y="140" width="8" height="10" fill="#ffd27a"/>`).join("")
 };
+ART.tito = (id)=> ART.santospirito(id);
 function scene(id){ const f = ART[id]; return `<svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${f?f(id):sky(id,"dia")}<rect width="400" height="170" fill="url(#fade${id})"/></svg>`; }
 
 /* Cabecera: skyline al atardecer */
@@ -1080,7 +1083,7 @@ const COORDS = {
   duomo:[43.7731,11.2560], accademia:[43.7768,11.2587], cupula:[43.7733,11.2569], orsanmichele:[43.7708,11.2547],
   signoria:[43.7696,11.2558], ponte:[43.7680,11.2531], piazzale:[43.7629,11.2650], campanile:[43.7728,11.2556],
   mercato:[43.7764,11.2532], capillas:[43.7752,11.2534], santacroce:[43.7685,11.2622], uffizi:[43.7678,11.2553],
-  santospirito:[43.7672,11.2479], hotel:[43.7792,11.2538]
+  santospirito:[43.7672,11.2479], hotel:[43.7792,11.2538], tito:[43.7801,11.2581]
 };
 const ALL = [...DAYS[1].stops, ...DAYS[2].stops];
 let here = null, lastArrived = null;
