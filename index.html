@@ -38,6 +38,13 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(34px,10vw,58px);
 .alert{background:var(--warn-bg);color:var(--warn-ink);border-radius:14px;padding:14px 16px;font-size:15px;display:flex;flex-direction:column;gap:8px}
 .where{background:var(--night);color:#fff;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
 .where p{margin:0;font-size:15px;color:#d9d7ea}
+.scene .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.scene .ph~svg{opacity:1}
+.scene .num,.scene h2{z-index:2}
+.scene::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(transparent 45%,rgba(10,5,20,.65));pointer-events:none}
+.heroimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(30,20,50,.35),rgba(30,20,50,.65))}
+.hero-in{z-index:1;padding-block:44px 120px}
 .geobar{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--night);color:#fff;border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;font-size:15px}
 .geobar span{flex:1;min-width:0}
 .geobar.arrived{background:var(--verde)}
@@ -84,6 +91,16 @@ details p{margin:.6em 0 0}
 .look li{margin:.2em 0}
 .check{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
 .check input{width:20px;height:20px;accent-color:var(--verde)}
+.foodsec h3{font-family:var(--f-display);color:var(--rosa);margin:6px 0 2px;font-size:21px}
+.fnote{margin:0 0 8px;color:var(--muted);font-size:14px}
+.flist{display:flex;flex-direction:column;gap:10px}
+.fitem{background:var(--surface);border-radius:14px;padding:14px 16px;box-shadow:0 4px 16px rgba(40,30,60,.08);display:flex;flex-direction:column;gap:6px}
+.fitem p{margin:0;font-size:15.5px}
+.fhead{display:flex;flex-direction:column}
+.fhead b{font-size:17px}
+.fhead span{font-size:13.5px;color:var(--muted)}
+.fitem .btn{align-self:flex-start}
+.tabs button{padding:11px 4px;font-size:14px}
 .tips{background:var(--surface);border-radius:16px;padding:16px;box-shadow:0 6px 24px rgba(40,30,60,.08)}
 .tips h3{font-family:var(--f-display);font-size:20px;margin:0 0 6px;color:var(--rosa)}
 .tips ul{margin:0;padding-left:1.1em}
@@ -120,6 +137,7 @@ details p{margin:.6em 0 0}
   <div class="tabs" role="tablist">
     <button role="tab" id="tab1" aria-selected="true" data-day="1">Viernes · Día 1</button>
     <button role="tab" id="tab2" aria-selected="false" data-day="2">Sábado · Día 2</button>
+    <button role="tab" id="tab3" aria-selected="false" data-day="3">🍺 Comer</button>
   </div>
   <p class="daynote" id="daynote"></p>
   <div class="stops" id="stops"></div>
@@ -145,6 +163,7 @@ details p{margin:.6em 0 0}
     <a href="https://tickets.duomo.firenze.it" target="_blank" rel="noopener">Duomo y Cúpula</a> ·
     <a href="https://www.uffizi.it/en/tickets" target="_blank" rel="noopener">Uffizi</a> ·
     <a href="https://www.galleriaaccademiafirenze.it" target="_blank" rel="noopener">Accademia</a>.</p>
+  <p class="foot" id="credits"></p>
 </div>
 
 <script>
@@ -680,6 +699,45 @@ Dentro del palacio hay varios museos: la Galería Palatina, llena de cuadros de 
 Y ahora sí, la despedida. Has visto en dos días la cúpula que nadie sabía construir, las puertas del Paraíso, el David, a Botticelli y a Miguel Ángel enterrado entre los grandes. Florencia tenía unos cuarenta o cincuenta mil habitantes cuando ocurrió casi todo esto, menos que muchas ciudades medianas de hoy, y aun así cambió la manera de ver el mundo de toda Europa. Hay un dicho que dice que Florencia no se visita, se vuelve. Seguro que vuelves.`}
 ];
 
+const FOOD = [
+ {sec:"🍺 Cerveza artesana", note:"Para probar cervezas italianas y toscanas de pequeños productores.", items:[
+  {n:"King Grizzly",z:"Centro, entre Palazzo Strozzi y el Bargello",d:"Pub de aire de taberna con cervezas artesanas italianas, locales y extranjeras. Muy céntrico, pero con pocas mesas.",q:"King Grizzly, Via del Canto alla Quarconia 7"},
+  {n:"Pint of View",z:"Oltrarno, al lado de Santo Spirito",d:"Gastropub cuidado con IPAs, stouts y saisons, cócteles y cocina de inspiración asiática. Perfecto para la última noche.",q:"Pint of View, Borgo Tegolaio 17"},
+  {n:"Archea Brewery",z:"Oltrarno, Via dei Serragli",d:"Bar de la cervecera Archea con tabla de cata de cuatro vasos; su IPA afrutada es la más pedida.",q:"Archea Brewery, Via dei Serragli 44"},
+  {n:"Birreria Artigianale 17",z:"Sant'Ambrogio, Borgo la Croce",d:"Pequeño y llevado por su dueño, con carta cambiante de cervezas italianas y toscanas, a veces ediciones limitadas.",q:"Birreria Art. 17, Borgo la Croce 64"},
+  {n:"Alibi Craft Beer",z:"Junto a la estación de Santa Maria Novella",d:"Cervezas raras (ácidas, de fruta y las Italian Grape Ale, hechas con mosto de uva) con hamburguesas.",q:"Alibi Craft Beer, Via Faenza 21"},
+  {n:"Diorama",z:"San Frediano, Via Pisana",d:"Local diminuto y muy de barrio, con cervezas toscanas, terraza y comida típica.",q:"Diorama, Via Pisana 78"}]},
+ {sec:"🥂 Plazas para tomar algo", note:"Donde se toma el aperitivo los florentinos, de 18:00 a 21:00 más o menos.", items:[
+  {n:"Piazza Santo Spirito",z:"Oltrarno",d:"La plaza con más ambiente local: terrazas, vino y spritz al pie de la iglesia de Brunelleschi. Aquí acaba tu sábado.",q:"Piazza Santo Spirito"},
+  {n:"San Niccolò",z:"Bajando del Piazzale Michelangelo",d:"Calle de bares y osterías al pie de la colina. Ideal para el viernes al bajar del atardecer.",q:"Via di San Niccolò"},
+  {n:"Sant'Ambrogio",z:"Detrás de Santa Croce",d:"Barrio de florentinos junto a su mercado, con bares sencillos y muy pocos turistas.",q:"Piazza Sant'Ambrogio"},
+  {n:"Le Volpi e l'Uva",z:"Junto al Ponte Vecchio",d:"Pequeña vinoteca con vinos por copas de pequeños productores y crostini. Un clásico.",q:"Le Volpi e l'Uva, Piazza dei Rossi"}]},
+ {sec:"🍝 Comer bueno bueno", note:"Para cenar, reserva o ve pronto (sobre las 19:30). Mira el horario en Maps antes de ir: muchos cierran un día a la semana.", items:[
+  {n:"Da Nerbone",z:"Mercato Centrale, planta baja",d:"El puesto de lampredotto más famoso, en el mercado desde el siglo diecinueve. Solo a mediodía.",q:"Da Nerbone, Mercato Centrale"},
+  {n:"Trattoria Mario",z:"San Lorenzo, junto al Mercato Centrale",d:"Trattoria de mesas compartidas de toda la vida: ribollita y bistecca. Solo a mediodía y sin reservas: llega pronto.",q:"Trattoria Mario, Via Rosina 2"},
+  {n:"Sostanza",z:"Cerca de Santa Maria Novella",d:"Mítica desde hace más de un siglo: bistecca y su famoso pollo a la mantequilla. Hay que reservar.",q:"Trattoria Sostanza, Via del Porcellana 25"},
+  {n:"Trattoria dei 13 Gobbi",z:"Cerca de Santa Maria Novella",d:"Ambiente rústico y bistecca a la brasa, en la misma calle que Sostanza.",q:"Trattoria 13 Gobbi, Via del Porcellana 9"},
+  {n:"Buca Mario",z:"Centro, Piazza Ottaviani",d:"Bodega histórica bajo tierra, más formal, especialista en bistecca.",q:"Buca Mario, Piazza Ottaviani 16"},
+  {n:"Il Magazzino",z:"Oltrarno, Piazza della Passera",d:"Osteria y tripería: lampredotto en versiones distintas, como ravioli o albóndigas. Encaja con la noche en Santo Spirito.",q:"Osteria Il Magazzino, Piazza della Passera"},
+  {n:"Al Tranvai",z:"San Frediano, Piazza Tasso",d:"Trattoria pequeña y auténtica; su lampredotto hervido con salsa verde es de los mejores.",q:"Trattoria Al Tranvai, Piazza Tasso"},
+  {n:"Zeb",z:"San Niccolò",d:"Mitad tienda, mitad cocina, con barra: albóndigas y carnes hervidas caseras. Al bajar del Piazzale.",q:"Zeb, Via San Miniato 2"}]},
+ {sec:"🥪 Rápido y dulce", note:"", items:[
+  {n:"All'Antico Vinaio",z:"Via dei Neri, junto a la Señoría",d:"Los panini más famosos de Florencia, enormes. Suele haber cola, pero va rápida.",q:"All'Antico Vinaio, Via dei Neri"},
+  {n:"Vivoli",z:"Cerca de Santa Croce",d:"Una de las heladerías más antiguas de la ciudad.",q:"Vivoli gelateria"},
+  {n:"Gelateria dei Neri",z:"Via dei Neri",d:"Helado artesano con sabores de temporada, muy querida por los florentinos.",q:"Gelateria dei Neri"}]}
+];
+function renderFood(){
+  document.getElementById("daynote").textContent = "Sitios con buena fama comprobados hoy. Abre «Llévame» para ver horario y ruta en Maps.";
+  const box=document.getElementById("stops"); box.innerHTML="";
+  FOOD.forEach(sec=>{
+    const el=document.createElement("section"); el.className="foodsec";
+    el.innerHTML=`<h3>${sec.sec}</h3>${sec.note?`<p class="fnote">${sec.note}</p>`:""}<div class="flist">${sec.items.map(it=>`
+      <div class="fitem"><div class="fhead"><b>${it.n}</b><span>${it.z}</span></div><p>${it.d}</p>
+      <a class="btn ghost" href="${ROUTE(it.q)}" target="_blank" rel="noopener">🚶 Llévame</a></div>`).join("")}</div>`;
+    box.appendChild(el);
+  });
+}
+
 
 /* ---------- Ilustraciones ---------- */
 const SKIES = {
@@ -859,6 +917,7 @@ function speakList(key, items, btn, onChapter){
   });
 }
 function render(){
+  if(current===3){ renderFood(); return; }
   const d = DAYS[current], done = getDone();
   document.getElementById("daynote").textContent = d.note;
   const box = document.getElementById("stops"); box.innerHTML = "";
@@ -900,7 +959,32 @@ document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",
   try{ localStorage.setItem("flor-day", current); }catch(e){}
   render(); document.querySelector(".tabs").scrollIntoView({behavior:"smooth"});
 }));
-try{ if(+localStorage.getItem("flor-day")===2){ current=2; tab1.setAttribute("aria-selected","false"); tab2.setAttribute("aria-selected","true"); } }catch(e){}
+try{ const sd=+localStorage.getItem("flor-day"); if(sd===2||sd===3){ current=sd; document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected", +x.dataset.day===sd)); } }catch(e){}
+/* ---------- Fotos (Wikimedia Commons) ---------- */
+const PH = {
+ hero:["Vista de Florencia desde Piazzale Michelangelo, Italia, 2022-09-18, DD 199.jpg","Diego Delso","CC BY-SA 4.0"],
+ duomo:["Cathédrale Santa Maria Fiore - Florence (IT52) - 2022-08-31 - 54.jpg","Chabe01","CC BY-SA 4.0"],
+ accademia:["Michelangelo's David (Foreground).jpg","Livioandronico2013","CC BY-SA 4.0"],
+ cupula:["Vista de Florencia desde Piazzale Michelangelo, Italia, 2022-09-18, DD 203-205 HDR.jpg","Diego Delso","CC BY-SA 4.0"],
+ orsanmichele:["Florence - Orsanmichele (4249174592).jpg","Greg Willis","CC BY-SA 2.0"],
+ signoria:["Fontana del Nettuno (Firenze) left.jpg","Wikibusters","CC BY-SA 4.0"],
+ ponte:["Ponte Vecchio at dusk 1.JPG","Martin Falbisoner","CC BY-SA 3.0"],
+ piazzale:["Vista de Florencia desde Piazzale Michelangelo, Italia, 2022-09-18, DD 200-202 HDR.jpg","Diego Delso","CC BY-SA 4.0"],
+ campanile:["Santa Croce di Firenze viewed from Giotto Campanile dllu.jpg","Dllu","CC BY-SA 4.0"],
+ mercato:["Mercato centrale di san lorenzo 02.jpg","Sailko","CC BY 3.0"],
+ capillas:["Cappelle Medicee, sagrestia nuova tomba di lorenzo 3 l'alba e il crepuscolo (Michelangelo).JPG","Sailko","CC BY 2.5"],
+ santacroce:["Basilica di Santa Croce (12437).jpg","Rhododendrites","CC BY-SA 4.0"],
+ uffizi:["Firenze - Florence - Galleria degli Uffizi - Vasari Corridor 1566 - View NNE through the Uffizi Courtyard towards Palazzo Vecchio.jpg","Txllxt TxllxT","CC BY-SA 4.0"],
+ santospirito:["Exterior view of Santo Spirito (Florence) 01.jpg","John Samuel","CC BY-SA 4.0"]
+};
+const phURL = (f,w=900) => "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(f.replace(/ /g,"_"))+"?width="+w;
+const _scene = scene;
+scene = function(id){ const p = PH[id]; if(!p) return _scene(id);
+  return `<img class="ph" src="${phURL(p[0])}" alt="" loading="lazy" onerror="this.remove()">`+_scene(id).replace('<svg ','<svg class="phfallback" '); };
+(function(){ const h=document.querySelector(".hero"); const img=document.createElement("img"); img.className="heroimg"; img.alt=""; img.src=phURL(PH.hero[0],1400); img.onerror=()=>img.remove(); h.insertBefore(img, h.querySelector(".hero-in"));
+  const c=document.getElementById("credits"); if(c) c.innerHTML="Fotos de Wikimedia Commons: "+Object.values(PH).filter((v,i,a)=>a.findIndex(x=>x[0]===v[0])===i).map(p=>`<a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(p[0].replace(/ /g,"_"))}" target="_blank" rel="noopener">${p[1]}</a> (${p[2]})`).join(" · ");
+})();
+
 /* ---------- Ubicación (solo versión web propia) ---------- */
 const COORDS = {
   duomo:[43.7731,11.2560], accademia:[43.7768,11.2587], cupula:[43.7733,11.2569], orsanmichele:[43.7708,11.2547],
